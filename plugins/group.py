@@ -2,11 +2,12 @@ from googletrans import Translator
 from pyrogram import Client, filters
 from helper.list import list
 from helper.database import find_one
-@Client.on_message(filters.group & filters.command(["tr"]))
+
+@Client.on_message(filters.group & filters.command(["translate"]))
 async def left(client,message):
 	if (message.reply_to_message):
 		try:
-			lgcd = message.text.split("/tr")
+			lgcd = message.text.split("/translate")
 			lg_cd = lgcd[1].lower().replace(" ", "")
 			tr_text = message.reply_to_message.text
 			translator = Translator()
@@ -17,14 +18,14 @@ async def left(client,message):
 						fromt = i
 					if list[i] == translation.dest:
 						to = i 
-				await message.reply_text(f"Translated from **{fromt.capitalize()}** To **{to.capitalize()}**\n\n```{translation.text}```")
+				await message.reply_text(f"**Translated From {fromt.capitalize()} To {to.capitalize()}**\n\n```{translation.text}``` Join @Star_Bots_Tamil")
 			except:
-			   	await message.reply_text(f"Translated from **{translation.src}** To **{translation.dest}**\n\n```{translation.text}```")
+			   	await message.reply_text(f"**Translated From {translation.src} To {translation.dest}**\n\n```{translation.text}``` Join @Star_Bots_Tamil")
       			
 				
 			
 		except :
 			print("error")
 	else:
-			 ms = await message.reply_text("You can Use This Command by using reply to message")
+			 ms = await message.reply_text("**You Can Use This Command with Your Language by using Reply to Message\n\n Example :-** ```/translate Tamil```")
 			 await ms.delete()
