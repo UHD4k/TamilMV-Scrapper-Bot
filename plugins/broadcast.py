@@ -24,5 +24,5 @@ async def stats(bot, message):
    ids = getid()
    await ms.edit(f"**Total Users 📊 :- {total} Users**")
    for id in ids:
-     except:
+
      	pass
