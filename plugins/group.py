@@ -18,9 +18,9 @@ async def left(client,message):
 						fromt = i
 					if list[i] == translation.dest:
 						to = i 
-				await message.reply_text(f"**Translated From {fromt.capitalize()} To {to.capitalize()}**\n\n```{translation.text}``` Join @Star_Bots_Tamil")
+				await message.reply_text(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
 			except:
-			   	await message.reply_text(f"**Translated From {translation.src} To {translation.dest}**\n\n```{translation.text}``` Join @Star_Bots_Tamil")
+			   	await message.reply_text(f"**Translated From {translation.src} To {translation.dest}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
       			
 				
 			
