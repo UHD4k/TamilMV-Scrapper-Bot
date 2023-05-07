@@ -26,3 +26,9 @@ async def stats(bot, message):
    for id in ids:
 
      	pass
+
+@Client.on_message(filters.command('users') & filters.private & filters.user(ADMIN))
+async def get_users(client: Bot, message: Message):
+    msg = await client.send_message(chat_id=message.chat.id, text=f"**Processing**")
+    users = await full_userbase()
+    await msg.edit(f"**{len(users)} users are using this bot**")
