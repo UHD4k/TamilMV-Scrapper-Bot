@@ -11,12 +11,12 @@ from helper.list import list
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
           insert(int(message.chat.id))
-          await message.reply_text(text =f"**Hello 👋🏻 {message.from_user.first_name} ❤️\n\nI'm Star Bots Official Google Translator Bot. I Can Translate any Language to You Selected Language. You Can Set Your Language Permanently.",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
+          await message.reply_text(text =f"**Hello 👋🏻 {message.from_user.first_name} ❤️\n\nI'm Star Bots Official Google Translator Bot. I Can Translate any Language to You Selected Language. You Can Set Your Language Permanently.\n\nTo know How to Use me check /help.\n\nI'll Work in Groups and Also Inline Anywhere.**",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
   
 @Client.on_message(filters.private & filters.command(['help']))
 async def help(client, message):
           insert(int(message.chat.id))
-          await message.reply_text(text =f"**Hey 👋🏻 {message.from_user.first_name} Follow These Steps :-\n\n● Send /set language_name\n● Send /unset for Unsetting Current Default Language\n● Send /list for Languages List\n● Just Send a Text for Translation\n● Reply with Any Text With /translate language_name (Support Only Groups)\ntext2speech - Reply with Text to Get Audio Speech 💬\n\nAvailable Commands\n\n● /start - Check if 😊 I'm Alive\n● /help - How to Use❓\n● /about - to Know About Me 😌\nMade by [Star Bots Tamil](https://t.me/Star_Bots_Tamil)",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
+          await message.reply_text(text =f"**Hey 👋🏻 {message.from_user.first_name} Follow These Steps :-\n\n● Send /set language_name\n● Send /unset for Unsetting Current Default Language\n● Send /list for Languages List\n● Just Send a Text for Translation\n● Reply with Any Text With /translate language_name (Support Only Groups)\ntext2speech - Reply with Text to Get Audio Speech 💬\n\nAvailable Commands\n\n● /start - Check if 😊 I'm Alive\n● /help - How to Use❓\n● /about - to Know About Me 😌\nMade by [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
 
 
 @Client.on_message(filters.private & filters.command(['about']))
@@ -25,21 +25,7 @@ async def about(client, message):
 
           insert(int(message.chat.id))
 
-          await message.reply_text(text =f"""<b><i>🤖 My Name :- <a href=https://t.me/Star_Moviess_Bot><b>Star Movies Bot</b></a>\n
-
-🧑🏻‍💻 Developer :- <a href=https://t.me/TG_Karthik><b>Karthik</b></a>\n
-
-📝 Language :- Python3\n
-
-📚 Framework :- Pyrogram\n
-
-📡 Hosted on :- VPS\n
-
-🎥 Movie Updates :- <a href=https://t.me/Star_Moviess_Tamil><b></b>Star Movies Tamil</a>\n
-
-🤖 Bot Channel :- <a href=https://t.me/Star_Bots_Tamil><b></b>Star Bots Tamil</a>\n
-
-🌟 Version :- 4.4</b></i>""",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
+          await message.reply_text(text =f"**🤖 My Name :- [Google Translator Star Bots](https://t.me/Google_Translator_Star_Bot)\n\n🧑🏻‍💻 Developer :- [Karthik](https://t.me/TG_Karthik)\n\n📝 Language :- Python3\n\n📚 Framework :- Pyrogram\n\n📡 Hosted on :- VPS\n\n🤖 Bot Channel :- [Star Bots Tamil](https://t.me/Star_Bots_Tamil)\n\n🎥 Movie Updates :- [Star Movies Tamil](https://t.me/Star_Moviess_Tamil)**",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
 
 
 
