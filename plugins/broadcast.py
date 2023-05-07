@@ -16,3 +16,8 @@ async def broadcast(bot, message):
      	await message.reply_to_message.copy(id)
      except:
      	pass
+
+@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["stats"]))
+async def stats(bot, message):
+   tot = len(ids)
+   await message.reply_text(f"**Total Users 📊 :- {tot} Users**")
