@@ -87,11 +87,11 @@ async def echo(client, message):
 							fromt = i
 						if list[i] == translation.dest:
 							to = i
-					await message.reply_text(f"Translated from **{fromt.capitalize()}** To **{to.capitalize()}**\n\n```{translation.text}```\n\n join @lntechnical")
+					await message.reply_text(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n```{translation.text}```\n\n Join [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
 			except Exception as e:
-					await message.reply_text(f"Translated from **{translation.src}** To **{translation.dest}**\n\n```{translation.text}```\n\n join @lntechnical")
+					await message.reply_text(f"**Translated From {translation.src} To {translation.dest}\n\n```{translation.text}```\n\n Join [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
 	else:
-		await  message.reply_text("**Select Language 👇🏻**",reply_to_message_id = message.message_id, reply_markup =keybord1)
+		await  message.reply_text("**Select Your Language 👇🏻**",reply_to_message_id = message.message_id, reply_markup =keybord1)
 
 @Client.on_callback_query()
 async def translate_text(bot,update):
@@ -283,17 +283,17 @@ async def translate_text(bot,update):
       tr_text = update.message.reply_to_message.text
       cb_data = update.data
       if cb_data== "page2":
-      	await update.message.edit("**Select Language 👇🏻**",reply_markup = keybord2)
+      	await update.message.edit("**Select Your Language 👇🏻**",reply_markup = keybord2)
       elif cb_data == "page1":
-      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord1)
+      	await update.message.edit("**Select Your Language 👇🏻**",reply_markup =keybord1)
       elif cb_data =="page3":
-      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord3)
+      	await update.message.edit("**Select Your Language 👇🏻**",reply_markup =keybord3)
       elif cb_data == "page4":
-      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord4)
+      	await update.message.edit("**Select Your Language 👇🏻**",reply_markup =keybord4)
       elif cb_data =="page5":
-      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord5)
+      	await update.message.edit("**Select Your Language 👇🏻**",reply_markup =keybord5)
       elif cb_data =="page6":
-      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord6)
+      	await update.message.edit("**Select Your Language 👇🏻**",reply_markup =keybord6)
       else :
       		try:
       			translator = Translator()
@@ -307,7 +307,7 @@ async def translate_text(bot,update):
       					fromt = i
       				if list[i] == translation.dest:
       					to = i 
-      			await update.message.edit(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)")
+      			await update.message.edit(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
       		except Exception as e:
-      			await update.message.edit(f"**Translated From {translation.src} To {translation.dest}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)")
+      			await update.message.edit(f"**Translated From {translation.src} To {translation.dest}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
       						
