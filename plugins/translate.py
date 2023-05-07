@@ -17,6 +17,32 @@ async def start(client, message):
 async def help(client, message):
           insert(int(message.chat.id))
           await message.reply_text(text =f"**Hey 👋🏻 {message.from_user.first_name} Follow These Steps :-\n\n● Send /set language_name\n● Send /unset for Unsetting Current Default Language\n● Send /list for Languages List\n● Just Send a Text for Translation\n● Reply with Any Text With /translate language_name (Support Only Groups)\ntext2speech - Reply with Text to Get Audio Speech 💬\n\nAvailable Commands\n\n● /start - Check if 😊 I'm Alive\n● /help - How to Use❓\n● /about - to Know About Me 😌\nMade by [Star Bots Tamil](https://t.me/Star_Bots_Tamil)",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
+@Client.on_message(filters.private & filters.command(['start']))
+
+
+@Client.on_message(filters.private & filters.command(['about']))
+
+async def about(client, message):
+
+          insert(int(message.chat.id))
+
+          await message.reply_text(text =f"""<b><i>🤖 My Name :- <a href=https://t.me/Star_Moviess_Bot><b>Star Movies Bot</b></a>\n
+
+🧑🏻‍💻 Developer :- <a href=https://t.me/TG_Karthik><b>Karthik</b></a>\n
+
+📝 Language :- Python3\n
+
+📚 Framework :- Pyrogram\n
+
+📡 Hosted on :- VPS\n
+
+🎥 Movie Updates :- <a href=https://t.me/Star_Moviess_Tamil><b></b>Star Movies Tamil</a>\n
+
+🤖 Bot Channel :- <a href=https://t.me/Star_Bots_Tamil><b></b>Star Bots Tamil</a>\n
+
+🌟 Version :- 4.4</b></i>""",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
+
+
 
             
 @Client.on_message(filters.private & filters.text  )
