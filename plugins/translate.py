@@ -3,6 +3,9 @@ from pyrogram import Client, filters
 from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup
+    InlineQuery,
+    InlineQueryResultArticle,
+    InputTextMessageContent
 )
 
 from helper.database import find , insert
