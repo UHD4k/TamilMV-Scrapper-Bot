@@ -2,7 +2,8 @@ import pymongo
 import os
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
-
+from bot import FORCE_SUB_CHANNEL
+ADMIN = int(os.environ.get("ADMIN", 1391556668))
 
 DB_NAME = os.environ.get("DB_NAME","")
 DB_URL = os.environ.get("DB_URL","")
