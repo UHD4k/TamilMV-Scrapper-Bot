@@ -58,7 +58,7 @@ def is_subscribed(filter, client, update):
     if user_id in ADMIN:
         return True
     try:
-        member = await client.get_chat_member(chat_id = FORCE_SUB_CHANNEL, user_id = user_id)
+        member = client.get_chat_member(chat_id = FORCE_SUB_CHANNEL, user_id = user_id)
     except UserNotParticipant:
         return False
 
