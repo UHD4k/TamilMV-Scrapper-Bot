@@ -38,3 +38,12 @@ def getid():
 
 def find_one(id):
 	return dbcol.find_one({"_id":id})
+
+def full_userbase():
+    user_docs = dbcol.find()
+    user_ids = []
+    for doc in user_docs:
+        user_ids.append(doc['_id'])
+        
+    return user_ids
+    
