@@ -20,6 +20,9 @@ async def broadcast(bot, message):
 @Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["stats"]))
 async def stats(bot, message):
    ms = await message.reply_text("**Geting All Users 📊 Count From Database...**")
-   total = len(id)
-   id = getid()
+   total = len(ids)
+   ids = getid()
    await ms.edit(f"**Total Users 📊 :- {total} Users**")
+   for id in ids:
+     except:
+     	pass
