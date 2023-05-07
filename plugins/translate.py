@@ -27,13 +27,15 @@ async def about(client, message):
 @Client.on_message(filters.private & filters.command(['list']))
 async def list(client, message):
           insert(int(message.chat.id))
-          await message.reply_text(text =f"**List is in The Form\nLanguage code -> Language\n\nta -> தமிழ் -> Tamil\naf -> Afrikaans\nsq -> Albanian\nam -> Amharic\nar -> Arabic\nhy -> Armenian\naz -> Azerbaijani\neu -> Basque\nbe -> Belarusian\nbn -> Bengali\nbs -> Bosnian\nbg -> Bulgarian\nca -> Catalan\nceb -> Cebuano\nny -> Chichewa\nzh-cn -> Chinese\nco -> Corsican\nhr -> Croatian\ncs -> Czech\nda -> Danish\nnl -> Dutch\nen -> English\neo -> Esperanto\net -> Estonian\ntl -> Filipino\nfi -> Finnish\nfr -> French\nfy -> Frisian\ngl -> Galician\nka -> Georgian\nde -> German\nel -> Greek\ngu -> Gujarati\nht -> Haitian creole\nha -> Hausa\nhaw -> Hawaiian\niw -> Hebrew\nhi -> Hindi\nhmn -> Hmong\nhu -> Hungarian\nis -> Icelandic\nig -> Igbo\nid -> Indonesian\nga -> Irish\nit -> Italian\nja -> Japanese\njw -> Javanese\nkn -> Kannada\nkk -> Kazakh\nkm -> Khmer\nrw -> Kinyarwanda\nko -> Korean\nku -> Kurdish (kurmanji)\nky -> Kyrgyz\nlo -> Lao\nla -> Latin\nlv -> Latvian\nlt -> Lithuanian\nlb -> Luxembourgish\nmk -> Macedonian\nmg -> Malagasy\nms -> Malay\nml -> Malayalam\nmt -> Maltese\nmi -> Maori\nmr -> Marathi\nmn -> Mongolian\nmy -> Myanmar (burmese)\nne -> Nepali\nno -> Norwegian\nor -> Oriya\nps -> Pashto\nfa -> Persian\npl -> Polish\npt -> Portuguese\npa -> Punjabi\nro -> Romanian\nru -> Russian\nsm -> Samoan\ngd -> Scots gaelic\nsr -> Serbian\nst -> Sesotho\nsn -> Shona\nsd -> Sindhi\nsi -> Sinhala\nsk -> Slovak\nsl -> Slovenian\nso -> Somali\nes -> Spanish\nsu -> Sundanese\nsw -> Swahili\nsv -> Swedish\ntg -> Tajik\nta -> Tamil\ntt -> Tatar\nte -> Telugu\nth -> Thai\ntr -> Turkish\ntk -> Turkmen\nug -> Uighur\nuk -> Ukrainian\nur -> Urdu\nuz -> Uzbek\nvi -> Vietnamese\ncy -> Welsh\nxh -> Xhosa\nyi -> Yiddish\nyo -> Yoruba\nzu -> Zulu**",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
+          await message.reply_text(text =f"**List is in The Form\nLanguage Code -> Language\n\nta -> தமிழ் -> Tamil\naf -> Afrikaans\nsq -> Albanian\nam -> Amharic\nar -> Arabic\nhy -> Armenian\naz -> Azerbaijani\neu -> Basque\nbe -> Belarusian\nbn -> Bengali\nbs -> Bosnian\nbg -> Bulgarian\nca -> Catalan\nceb -> Cebuano\nny -> Chichewa\nzh-cn -> Chinese\nco -> Corsican\nhr -> Croatian\ncs -> Czech\nda -> Danish\nnl -> Dutch\nen -> English\neo -> Esperanto\net -> Estonian\ntl -> Filipino\nfi -> Finnish\nfr -> French\nfy -> Frisian\ngl -> Galician\nka -> Georgian\nde -> German\nel -> Greek\ngu -> Gujarati\nht -> Haitian creole\nha -> Hausa\nhaw -> Hawaiian\niw -> Hebrew\nhi -> Hindi\nhmn -> Hmong\nhu -> Hungarian\nis -> Icelandic\nig -> Igbo\nid -> Indonesian\nga -> Irish\nit -> Italian\nja -> Japanese\njw -> Javanese\nkn -> Kannada\nkk -> Kazakh\nkm -> Khmer\nrw -> Kinyarwanda\nko -> Korean\nku -> Kurdish (kurmanji)\nky -> Kyrgyz\nlo -> Lao\nla -> Latin\nlv -> Latvian\nlt -> Lithuanian\nlb -> Luxembourgish\nmk -> Macedonian\nmg -> Malagasy\nms -> Malay\nml -> Malayalam\nmt -> Maltese\nmi -> Maori\nmr -> Marathi\nmn -> Mongolian\nmy -> Myanmar (burmese)\nne -> Nepali\nno -> Norwegian\nor -> Oriya\nps -> Pashto\nfa -> Persian\npl -> Polish\npt -> Portuguese\npa -> Punjabi\nro -> Romanian\nru -> Russian\nsm -> Samoan\ngd -> Scots gaelic\nsr -> Serbian\nst -> Sesotho\nsn -> Shona\nsd -> Sindhi\nsi -> Sinhala\nsk -> Slovak\nsl -> Slovenian\nso -> Somali\nes -> Spanish\nsu -> Sundanese\nsw -> Swahili\nsv -> Swedish\ntg -> Tajik\nta -> Tamil\ntt -> Tatar\nte -> Telugu\nth -> Thai\ntr -> Turkish\ntk -> Turkmen\nug -> Uighur\nuk -> Ukrainian\nur -> Urdu\nuz -> Uzbek\nvi -> Vietnamese\ncy -> Welsh\nxh -> Xhosa\nyi -> Yiddish\nyo -> Yoruba\nzu -> Zulu**",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
 
 
             
 @Client.on_message(filters.private & filters.text  )
 async def echo(client, message):
 	keybord1= InlineKeyboardMarkup( [
+        [InlineKeyboardButton("தமிழ் -> Tamil",callback_data = "ta")
+	],
         [ 
             InlineKeyboardButton("Afrikaans", callback_data='af'),
              InlineKeyboardButton("Albanian", callback_data='sq'),
@@ -86,11 +88,13 @@ async def echo(client, message):
 			except Exception as e:
 					await message.reply_text(f"Translated from **{translation.src}** To **{translation.dest}**\n\n```{translation.text}```\n\n join @lntechnical")
 	else:
-		await  message.reply_text("Select language 👇",reply_to_message_id = message.message_id, reply_markup =keybord1)
+		await  message.reply_text("**Select Language 👇🏻**",reply_to_message_id = message.message_id, reply_markup =keybord1)
 
 @Client.on_callback_query()
 async def translate_text(bot,update):
       keybord1= InlineKeyboardMarkup( [
+        [InlineKeyboardButton("தமிழ் -> Tamil",callback_data = "ta")
+	 ],
         [ 
             InlineKeyboardButton("Afrikaans", callback_data='af'),
              InlineKeyboardButton("Albanian", callback_data='sq'),
@@ -276,17 +280,17 @@ async def translate_text(bot,update):
       tr_text = update.message.reply_to_message.text
       cb_data = update.data
       if cb_data== "page2":
-      	await update.message.edit("Select language 👇",reply_markup = keybord2)
+      	await update.message.edit("**Select Language 👇🏻**",reply_markup = keybord2)
       elif cb_data == "page1":
-      	await update.message.edit("Select language 👇",reply_markup =keybord1)
+      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord1)
       elif cb_data =="page3":
-      	await update.message.edit("Select language 👇",reply_markup =keybord3)
+      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord3)
       elif cb_data == "page4":
-      	await update.message.edit("Select language 👇",reply_markup =keybord4)
+      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord4)
       elif cb_data =="page5":
-      	await update.message.edit("Select language 👇",reply_markup =keybord5)
+      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord5)
       elif cb_data =="page6":
-      	await update.message.edit("Select language 👇",reply_markup =keybord6)
+      	await update.message.edit("**Select Language 👇🏻**",reply_markup =keybord6)
       else :
       		try:
       			translator = Translator()
@@ -300,7 +304,7 @@ async def translate_text(bot,update):
       					fromt = i
       				if list[i] == translation.dest:
       					to = i 
-      			await update.message.edit(f"Translated from **{fromt.capitalize()}** To **{to.capitalize()}**\n\n```{translation.text}```\n\n join @lntechnical")
+      			await update.message.edit(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)")
       		except Exception as e:
-      			await update.message.edit(f"Translated from **{translation.src}** To **{translation.dest}**\n\n```{translation.text}```\n\n join @lntechnical")
+      			await update.message.edit(f"**Translated From {translation.src} To {translation.dest}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)")
       						
