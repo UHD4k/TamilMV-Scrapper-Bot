@@ -17,18 +17,10 @@ async def broadcast(bot, message):
      except:
      	pass
 
-@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["stats"]))
-async def stats(bot, message):
-   ms = await message.reply_text("**Geting All Users 📊 Count From Database...**")
-   total = len(ids)
-   ids = getid()
-   await ms.edit(f"**Total Users 📊 :- {total} Users**")
-   for id in ids:
 
-     	pass
 
-@Client.on_message(filters.command('users') & filters.private & filters.user(ADMIN))
+@Client.on_message(filters.command('stats') & filters.private & filters.user(ADMIN))
 async def get_users(client, message):
-    msg = await client.send_message(chat_id=message.chat.id, text=f"**Processing**")
+    msg = await client.send_message(chat_id=message.chat.id, text=f"**Geting All Users 📊 Count From Database...**")
     users = full_userbase()
-    await msg.edit(f"**{len(users)} users are using this bot**")
+    await msg.edit(f"**Total Users 📊 :- {len(users)} Users**")
