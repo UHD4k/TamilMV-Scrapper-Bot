@@ -1,6 +1,6 @@
 from pyrogram import Client ,filters
 import os
-from helper.database import getid
+from helper.database import getid, full_userbase
 ADMIN = int(os.environ.get("ADMIN", 1391556668))
 
 
