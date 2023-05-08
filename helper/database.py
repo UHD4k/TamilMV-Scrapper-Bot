@@ -2,7 +2,6 @@ import pymongo
 import os
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
-from bot import FORCE_SUB_CHANNEL
 ADMIN = int(os.environ.get("ADMIN", 1391556668))
 
 DB_NAME = os.environ.get("DB_NAME","")
@@ -51,18 +50,3 @@ def full_userbase():
         
     return user_ids
  
-def is_subscribed(filter, client, update):
-    if not FORCE_SUB_CHANNEL:
-        return True
-    user_id = update.from_user.id
-    if user_id in ADMIN:
-        return True
-    try:
-        member = client.get_chat_member(chat_id = FORCE_SUB_CHANNEL, user_id = user_id)
-    except UserNotParticipant:
-        return False
-
-    if not member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER]:
-        return False
-    else:
-        return True
