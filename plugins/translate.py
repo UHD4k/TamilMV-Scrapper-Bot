@@ -4,7 +4,7 @@ from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup
 )
-
+from pyrogram.types import InlineQuery
 
 
 
@@ -12,7 +12,7 @@ from helper.database import find , insert
 from helper.list import list
 
 @Client.on_message(filters.private & filters.command(['start']))
-async def start(client, message):
+async def start(query: InlineQuery, message):
           insert(int(message.chat.id))
           await message.reply_text(text =f"<b>Hello 👋🏻 {message.from_user.first_name} ❤️\n\nI'm Star Bots Official Google Translator Bot. I Can Translate any Language to You Selected Language. You Can Set Your Language Permanently.\n\nTo know How to Use me check /help.\n\nI'll Work in Groups and Also Inline Anywhere.</b>",reply_to_message_id = message.id , parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil"),InlineKeyboardButton("Go Inline Here",switch_inline_query_current_chat=query)],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
   
