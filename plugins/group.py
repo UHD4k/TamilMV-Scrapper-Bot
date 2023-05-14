@@ -18,14 +18,14 @@ async def left(client,message):
 						fromt = i
 					if list[i] == translation.dest:
 						to = i 
-				await message.reply_text(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
+				await message.reply_text(f"**Translated From {fromt.capitalize()} To {to.capitalize()}\n\n<code>{translation.text}</code>\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
 			except:
-			   	await message.reply_text(f"**Translated From {translation.src} To {translation.dest}\n\n```{translation.text}```\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
+			   	await message.reply_text(f"**Translated From {translation.src} To {translation.dest}\n\n/<code>{translation.text}</code>\n\nJoin [Star Bots Tamil](https://t.me/Star_Bots_Tamil)**")
       			
 				
 			
 		except :
 			print("error")
 	else:
-			 ms = await message.reply_text("**You Can Use This Command with Your Language by using Reply to Message\n\n Example :-** ```/translate Tamil```")
+			 ms = await message.reply_text("**You Can Use This Command with Your Language by using Reply to Message\n\n Example :-** <code>/translate Tamil</code>")
 			 await ms.delete()
