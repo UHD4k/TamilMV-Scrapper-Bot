@@ -23,9 +23,9 @@ async def setlg(client,message):
     	    		try:
     	    			lgcd = list[cd]
     	    		except:
-    	    			await message.reply_text("**❗️ This Language Not Available in My List \n Or Check Your spelling 😉\n\nCheck Languages List With Language Code**",reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Star Bots Tamil" ,url="https://t.me/Star_Bots_Tamil")]]))
+    	    			await message.reply_text("**❗️ This Language Not Available in My List \n Or Check Your Spelling 😉\n\nCheck Languages List With Language Code**",reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Star Bots Tamil" ,url="https://t.me/Star_Bots_Tamil")]]))
     	    			return
     	    		set(user_id,lgcd)
     	    		await message.reply_text(f"**Successfully Set Custom Default Language {cd}**")
     	    else:
-    	    		await message.reply_text("**Please Use This Command with an Argument.\nFor Example :-** ```/set Tamil```",reply_markup=InlineKeyboardMarkup([[	InlineKeyboardButton("Star Bots Tamil",url = "https://t.me/Star_Bots_Tamil")]]))
+    	    		await message.reply_text("**Please Use This Command with an Argument.You Can Get More Languags /list.\nFor Example :-** <code>/set Tamil</code>",reply_markup=InlineKeyboardMarkup([[	InlineKeyboardButton("Star Bots Tamil",url = "https://t.me/Star_Bots_Tamil")]]))
