@@ -30,7 +30,7 @@ async def inline(_, query: InlineQuery):
         	return
         TRTEXT=  [ InlineQueryResultArticle( title=f"Translated From {translation.src} To {translation.dest}", input_message_content=InputTextMessageContent(translation.text),description=f'{translation.text}',thumb_url="https://tg-link.herokuapp.com/dl/0/AgADh60xG50-wFc.jpg")]
         try:
-        	await query.answer(results=TRTEXT ,  cache_time=2, switch_pm_text="Google Translater",switch_pm_parameter="start")
+        	await query.answer(results=TRTEXT, reply_markup = get_reply_markup(query=string),  cache_time=2, switch_pm_text="Google Translater",switch_pm_parameter="start")
         except:
         	return
 
