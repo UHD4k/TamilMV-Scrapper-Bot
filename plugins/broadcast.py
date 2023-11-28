@@ -1,8 +1,7 @@
 from pyrogram import Client ,filters
 import os
-from helper.database import getid, full_userbase
+from helper.database import getid, db
 ADMIN = int(os.environ.get("ADMIN", 1391556668))
-
 
 @Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["broadcast"]))
 async def broadcast(bot, message):
@@ -17,10 +16,8 @@ async def broadcast(bot, message):
      except:
      	pass
 
-
-
 @Client.on_message(filters.command('stats') & filters.private & filters.user(ADMIN))
 async def get_users(client, message):
     msg = await client.send_message(chat_id=message.chat.id, text=f"**Geting All Users 📊 Count From Database...**")
-    users = full_userbase()
-    await msg.edit(f"**Total Users 📊 :- {len(users)} Users**")
+    total_users = await db.total_users_count()
+    await msg.edit(f"**Total Users 📊 :- {len(total_users)} Users**")
