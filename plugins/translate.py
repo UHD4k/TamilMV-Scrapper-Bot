@@ -5,28 +5,24 @@ from pyrogram.types import (
     InlineKeyboardMarkup
 )
 from pyrogram.types import InlineQuery
-from helper.database import db
-from helper.database import find
+from helper.database import find, insert
 from helper.list import list
 
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(query: InlineQuery, message):
-          await db.add_user(client, message)
+          await insert(int(message.chat.id))
           await message.reply_text(text =f"<b>Hello 👋🏻 {message.from_user.first_name} ❤️\n\nI'm Star Bots Official Google Translator Bot. I Can Translate any Language to You Selected Language. You Can Set Your Language Permanently.\n\nTo know How to Use me check /help.\n\nI'll Work in Groups and Also Inline Anywhere.</b>",reply_to_message_id = message.id , parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil"),InlineKeyboardButton("Go Inline Here",switch_inline_query_current_chat='')],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
   
 @Client.on_message(filters.private & filters.command(['help']))
 async def help(client, message):
-          await db.add_user(client, message)
           await message.reply_text(text =f"<b>Hey 👋🏻 {message.from_user.first_name} Follow These Steps :-\n\n● Send /set language_name\n● Send /unset for Unsetting Current Default Language\n● Send /list for Languages List\n● Just Send a Text for Translation\n● Reply with Any Text With /translate language_name (Support Only Groups)\n● /text2speech - Reply with Text to Get Audio Speech 💬\n\nAvailable Commands\n\n● /start - Check if 😊 I'm Alive\n● /help - How to Use❓\n● /about - to Know About Me 😌\n\nMade by <a href=https://t.me/Star_Bots_Tamil><b></b>Star Bots Tamil</a></b>",reply_to_message_id = message.id , parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
 
 @Client.on_message(filters.private & filters.command(['about']))
 async def about(client, message):
-          await db.add_user(client, message)
           await message.reply_text(text =f"<b>🤖 My Name :- <a href=https://t.me/Google_Translator_Star_Bot><b>Google Translator Star Bots</b></a>\n\n🧑🏻‍💻 Developer :- <a href=https://t.me/TG_Karthik><b>Karthik</b></a>\n\n📝 Language :- Python3\n\n📚 Framework :- Pyrogram\n\n📡 Hosted on :- VPS\n\n🤖 Bot Channel :- <a href=https://t.me/Star_Bots_Tamil><b>Star Bots Tamil</b></a>\n\n🎥 Movie Updates :- <a href=https://t.me/Star_Moviess_Tamil><b>Star Movies Tamil</b></a></b>",reply_to_message_id = message.id , parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
 
 @Client.on_message(filters.private & filters.command(['list']))
 async def list(client, message):
-          await db.add_user(client, message)
           await message.reply_text(text =f"<b>List is in The Form\nLanguage Code -> Language\n\nta -> தமிழ் -> Tamil\naf -> Afrikaans\nsq -> Albanian\nam -> Amharic\nar -> Arabic\nhy -> Armenian\naz -> Azerbaijani\neu -> Basque\nbe -> Belarusian\nbn -> Bengali\nbs -> Bosnian\nbg -> Bulgarian\nca -> Catalan\nceb -> Cebuano\nny -> Chichewa\nzh-cn -> Chinese\nco -> Corsican\nhr -> Croatian\ncs -> Czech\nda -> Danish\nnl -> Dutch\nen -> English\neo -> Esperanto\net -> Estonian\ntl -> Filipino\nfi -> Finnish\nfr -> French\nfy -> Frisian\ngl -> Galician\nka -> Georgian\nde -> German\nel -> Greek\ngu -> Gujarati\nht -> Haitian creole\nha -> Hausa\nhaw -> Hawaiian\niw -> Hebrew\nhi -> Hindi\nhmn -> Hmong\nhu -> Hungarian\nis -> Icelandic\nig -> Igbo\nid -> Indonesian\nga -> Irish\nit -> Italian\nja -> Japanese\njw -> Javanese\nkn -> Kannada\nkk -> Kazakh\nkm -> Khmer\nrw -> Kinyarwanda\nko -> Korean\nku -> Kurdish (kurmanji)\nky -> Kyrgyz\nlo -> Lao\nla -> Latin\nlv -> Latvian\nlt -> Lithuanian\nlb -> Luxembourgish\nmk -> Macedonian\nmg -> Malagasy\nms -> Malay\nml -> Malayalam\nmt -> Maltese\nmi -> Maori\nmr -> Marathi\nmn -> Mongolian\nmy -> Myanmar (burmese)\nne -> Nepali\nno -> Norwegian\nor -> Oriya\nps -> Pashto\nfa -> Persian\npl -> Polish\npt -> Portuguese\npa -> Punjabi\nro -> Romanian\nru -> Russian\nsm -> Samoan\ngd -> Scots gaelic\nsr -> Serbian\nst -> Sesotho\nsn -> Shona\nsd -> Sindhi\nsi -> Sinhala\nsk -> Slovak\nsl -> Slovenian\nso -> Somali\nes -> Spanish\nsu -> Sundanese\nsw -> Swahili\nsv -> Swedish\ntg -> Tajik\nta -> Tamil\ntt -> Tatar\nte -> Telugu\nth -> Thai\ntr -> Turkish\ntk -> Turkmen\nug -> Uighur\nuk -> Ukrainian\nur -> Urdu\nuz -> Uzbek\nvi -> Vietnamese\ncy -> Welsh\nxh -> Xhosa\nyi -> Yiddish\nyo -> Yoruba\nzu -> Zulu</b>",reply_to_message_id = message.id , parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(            [                [                    InlineKeyboardButton("🤖 Bot Channel" ,url="https://t.me/Star_Bots_Tamil") ],                 [InlineKeyboardButton("🎥 Movie Updates", url="https://t.me/Star_Moviess_Tamil"),InlineKeyboardButton("👥 Support Group",url = "https://t.me/Star_Bots_Tamil_Support") ]           ]        ) )
             
 @Client.on_message(filters.private & filters.text  )
