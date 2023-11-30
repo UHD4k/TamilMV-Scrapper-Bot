@@ -7,6 +7,7 @@ from pyrogram.types import (
 from pyrogram.types import InlineQuery
 from helper.database import find, insert
 from helper.list import list
+from helper.utils import send_log and 
 
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(query: InlineQuery, message):
