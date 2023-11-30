@@ -2,12 +2,11 @@ import os
 from pyrogram import Client, filters, enums 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserNotParticipant
-from helper.database import db
 
 FORCE_SUB = os.environ.get("FORCE_SUB", "Star_Bots_Tamil") 
 
 async def not_subscribed(_, client, message):
-    await db.add_user(client, message)
+    await insert(int(message.chat.id))
     if not FORCE_SUB:
         return False
     try:             
