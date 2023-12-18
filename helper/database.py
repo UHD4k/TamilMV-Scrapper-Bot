@@ -1,4 +1,3 @@
-import pymongo 
 import os
 from pymongo.mongo_client import MongoClient
 from pyrogram.enums import ChatMemberStatus
