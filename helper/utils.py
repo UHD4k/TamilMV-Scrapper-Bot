@@ -1,4 +1,4 @@
-import math, time
+import math, time, os
 from datetime import datetime
 from pytz import timezone
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001821439025"))
