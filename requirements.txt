@@ -3,6 +3,8 @@ pyrogram
 pyromod==1.5
 pymongo
 dnspython
+httpcore==0.13.3
+dns==2.0.0
 googletrans==4.0.0rc1
 gTTS
 aiohttp==3.8.4
