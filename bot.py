@@ -3,6 +3,8 @@ import re, os, time
 from datetime import datetime
 from pytz import timezone
 from pyrogram.raw.all import layer
+from aiohttp import web
+from route import web_server
 
 id_pattern = re.compile(r'^.\d+$') 
 
@@ -33,6 +35,10 @@ class Bot(Client):
         self.username = me.username  
         self.uptime = BOT_UPTIME          
         print(f"{me.first_name} is Started...✨️\nMade By :- https://t.me/Star_Bots_Tamil")
+        if WEBHOOK:
+            app = web.AppRunner(await web_server())
+            await app.setup()       
+            await web.TCPSite(app, "0.0.0.0", 8080).start()
         for id in ADMIN:
             try: await self.send_message(id, f"**__{me.first_name} is Started...✨️\nMade By :- [Star Bots Tamil](https://t.me/Star_Bots_Tamil)__**")                                
             except: pass
