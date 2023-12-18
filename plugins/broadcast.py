@@ -19,5 +19,6 @@ async def broadcast(bot, message):
 @Client.on_message(filters.command('stats') & filters.private & filters.user(ADMIN))
 async def get_users(client, message):
     msg = await client.send_message(chat_id=message.chat.id, text=f"**Geting All Users 📊 Count From Database...**")
-    total_users = full_userbase()
-    await msg.edit(f"**Total Users 📊 :- {len(total_users)} Users**")
+    users = full_userbase()
+    total = len(users)
+    await msg.edit(f"**Total Users 📊 :- {total} Users**")
