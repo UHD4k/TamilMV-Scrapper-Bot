@@ -6,7 +6,7 @@ from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os
 from plugins.core.bypass_checker import direct_link_checker, is_excep_link
-from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter
+from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
 
 # Configs
