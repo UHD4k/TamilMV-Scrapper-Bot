@@ -1,5 +1,5 @@
 from asyncio import create_task, gather
-from pyrogram import Client
+from pyrogram import Client, filters
 from pyrogram.filters import command, user
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.enums import MessageEntityType
@@ -12,7 +12,7 @@ from plugins.core.bot_utils import convert_time, BypassFilter
 OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
 AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 
-@Client.on_message(BypassFilter & (user(Config.OWNER_ID)))
+@Client.on_message(BypassFilter & (filters.user(OWNER_ID)))
 async def bypass_check(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
@@ -20,7 +20,7 @@ async def bypass_check(client, message):
     ):
         txt = reply_to.text or reply_to.caption
         entities = reply_to.entities or reply_to.caption_entities
-    elif Config.AUTO_BYPASS or len(message.text.split()) > 1:
+    elif AUTO_BYPASS or len(message.text.split()) > 1:
         txt = message.text
         entities = message.entities
     else:
