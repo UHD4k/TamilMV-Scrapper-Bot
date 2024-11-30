@@ -96,4 +96,4 @@ async def main():
 
 # Run the client
 app = Client("user_client", session_string=user_string_session, api_id="11973721", api_hash="5264bf4663e9159565603522f58d3c18")
-app.run(main())
+app.start()
