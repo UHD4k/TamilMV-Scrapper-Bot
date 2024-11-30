@@ -1,6 +1,7 @@
 from re import match
 from urllib.parse import urlparse
 from plugins.core.exceptions import DDLException
+from plugins.scraper import *
 
 fmed_list = [
     "fembed.net",
