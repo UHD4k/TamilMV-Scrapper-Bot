@@ -77,7 +77,7 @@ async def bypass_handler(client: Client, message: Message):
             chat_id=message.chat.id,
             photo=movie.poster_url or None,
             caption=caption,
-            parse_mode="markdown"
+            parse_mode=enums.ParseMode.HTML
         )
     except Exception as e:
         await message.reply(f"⚠️ An error occurred: {str(e)}")
