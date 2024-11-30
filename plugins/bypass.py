@@ -12,6 +12,7 @@ from time import time
 # Configs
 OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
 AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
+CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
 @Client.on_message(BypassFilter & (filters.user(OWNER_ID)))
 async def bypass_check(client, message):
@@ -47,10 +48,26 @@ async def bypass_check(client, message):
         else:
             output.append(f"┖ <b>Bypass Link:</b> {result}")
 
+    # Send the full data with links to the user
     elapsed = time() - start
     reply_text = "\n".join(output)
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
+
     await wait_msg.edit(reply_text)
+
+    # Extract and send the torrent links to the channel
+    for link in links:
+        full_link_data, torrent_links = await tamilmv(link)
+
+        # Send the full link to the user as a direct message
+        await message.reply(full_link_data)
+
+        # Send the torrent links only to the channel
+        for torrent_link in torrent_links:
+            try:
+                await client.send_message(CHAT_ID, f"/qbleech {torrent_link}")
+            except Exception as e:
+                print(f"Error sending message: {e}")
 
 @Client.on_inline_query()
 async def inline_query(client, query):
