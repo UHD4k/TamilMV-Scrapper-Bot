@@ -109,7 +109,7 @@ async def bypass_check_for_channel(client, message):
                 # Log the link being sent for debugging
                 print(f"Sending torrent link: {result}")
                 # Send each torrent link separately to the group
-                await client.send_message(CHAT_ID, link)
+                await client.send_message(CHAT_ID, result)
             else:
                 print(f"Not a torrent link: {result}")  # Log if the link is not recognized as a torrent
 
