@@ -55,7 +55,7 @@ async def bypass_check(client, message):
     await wait_msg.edit(reply_text)
 
 @Client.on_message(BypassFilter1 & (filters.user(OWNER_ID)))
-async def bypass_check(client, message):
+async def bypass_check_for_channel(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
