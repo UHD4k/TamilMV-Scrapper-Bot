@@ -3,9 +3,12 @@ from pyrogram.filters import command, user
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
-from FZBypass import Config
-from FZBypass.core.bypass_checker import direct_link_checker, is_excep_link
-from FZBypass.core.bot_utils import convert_time, BypassFilter
+import os
+from plugins.core.bypass_checker import direct_link_checker, is_excep_link
+from plugins.core.bot_utils import convert_time, BypassFilter
+
+# Configs
+OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
 
 @Client.on_message(BypassFilter & (user(Config.OWNER_ID)))
 async def bypass_check(client, message):
