@@ -5,7 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os
-from plugins.core.bypass_checker import direct_link_checker, is_excep_link
+from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link
 from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
 
@@ -78,7 +78,7 @@ async def bypass_check_for_channel(client, message):
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset : entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(direct_link_checker(link)))
+            tasks.append(create_task(direct_link_checker1(link)))
 
     # Await all link checks
     results = await gather(*tasks, return_exceptions=True)
@@ -102,7 +102,7 @@ async def bypass_check_for_channel(client, message):
     for link in links:
         try:
             # Check if the link is a valid torrent
-            result = await direct_link_checker(link)
+            result = await direct_link_checker1(link)
 
             # If the result is valid and contains a torrent link, send it to the group
             if "torrent" in result.lower():  # Case-insensitive check for "torrent"
