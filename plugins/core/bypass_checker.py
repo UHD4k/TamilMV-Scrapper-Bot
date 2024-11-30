@@ -383,39 +383,10 @@ async def direct_link_checker(link, onlylink=False):
     elif bool(match(r"https?:\/\/linksxyz\.\S+", link)):
         blink = await linksxyz(link)
 
-    # DL Sites
-    elif bool(match(r"https?:\/\/cinevood\.\S+", link)):
-        return await cinevood(link)
-    elif bool(match(r"https?:\/\/kayoanime\.\S+", link)):
-        return await kayoanime(link)
-    elif bool(match(r"https?:\/\/toonworld4all\.\S+", link)):
-        return await toonworld4all(link)
-    elif bool(match(r"https?:\/\/skymovieshd\.\S+", link)):
-        return await skymovieshd(link)
-    elif bool(match(r"https?:\/\/.+\.sharespark\.\S+", link)):
-        return await sharespark(link)
+    # Scraper 
     elif bool(match(r"https?:\/\/.+\.1tamilmv\.\S+", link)):
         return await tamilmv(link)
-
-    # DL Links
-    elif bool(match(r"https?:\/\/hubdrive\.\S+", link)):
-        return await drivescript(link, Config.HUBDRIVE_CRYPT, "HubDrive")
-    elif bool(match(r"https?:\/\/katdrive\.\S+", link)):
-        return await drivescript(link, Config.KATDRIVE_CRYPT, "KatDrive")
-    elif bool(match(r"https?:\/\/drivefire\.\S+", link)):
-        return await drivescript(link, Config.DRIVEFIRE_CRYPT, "DriveFire")
-    elif bool(match(r"https?:\/\/sharer\.\S+", link)):
-        return await sharerpw(link)
-    elif is_share_link(link):
-        if "gdtot" in domain:
-            return await gdtot(link)
-        elif "filepress" in domain or "pressbee" in domain:
-            return await filepress(link)
-        elif "appdrive" in domain or "gdflix" in domain:
-            return await appflix(link)
-        else:
-            return await sharer_scraper(link)
-
+        
     # Exceptions
     elif bool(match(r"https?:\/\/.+\.technicalatg\.\S+", link)):
         raise DDLException("Bypass Not Allowed !")
