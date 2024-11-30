@@ -28,6 +28,29 @@ async def auto_bypass(_, c, message):
 
 BypassFilter = create(auto_bypass)
 
+# Bypass function for auto bypass checking (from your previous code)
+async def auto_bypass1(_, c, message):
+    if (
+        AUTO_BYPASS
+        and message.entities
+        and not match(r"^\/(bash|shell)($| )", message.text)
+        and any(
+            enty.type in [MessageEntityType.TEXT_LINK, MessageEntityType.URL]
+            for enty in message.entities
+        )
+    ):
+        return True
+    elif (
+        not AUTO_BYPASS
+        and (txt := message.text)
+        and match(rf"^\/(send|sendtorrent)(@{c.me.username})?($| )", txt)
+        and not match(r"^\/(bash|shell)($| )", txt)
+    ):
+        return True
+    return False
+
+
+BypassFilter1 = create(auto_bypass1)
 
 def convert_time(seconds):
     mseconds = seconds * 1000
