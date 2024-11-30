@@ -6,7 +6,7 @@ from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os
 from plugins.core.bypass_checker import direct_link_checker, is_excep_link
-from plugins.core.bot_utils import convert_time, BypassFilter
+from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter
 from time import time
 
 # Configs
@@ -54,8 +54,8 @@ async def bypass_check(client, message):
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
     await wait_msg.edit(reply_text)
 
-@Client.on_message(BypassFilter & (filters.user(OWNER_ID)))
-async def bypass_check(client, message):
+@Client.on_message(BypassFilter1 & (filters.user(OWNER_ID)))
+async def bypass_check_for_channel(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
@@ -68,6 +68,7 @@ async def bypass_check(client, message):
     else:
         return await message.reply("<i>No Link Provided!</i>")
 
+    # Send initial "Bypassing..." message
     wait_msg = await message.reply("<i>Bypassing...</i>")
     start = time()
 
@@ -79,6 +80,7 @@ async def bypass_check(client, message):
             links.append(link)
             tasks.append(create_task(direct_link_checker(link)))
 
+    # Await all link checks
     results = await gather(*tasks, return_exceptions=True)
 
     output = []
@@ -93,23 +95,26 @@ async def bypass_check(client, message):
     reply_text = "\n".join(output)
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
 
+    # Update the message with the bypass result
     await wait_msg.edit(reply_text)
 
     # Extract and send the torrent links to the channel
     for link in links:
-        # No need to call tamilmv, directly process the link (assuming it’s already bypassed)
         try:
             result = await direct_link_checker(link)
 
             # Send the full link to the user as a direct message
             await message.reply(f"Bypass Link: {result}")
 
-            # If the link is a torrent, send it to the channel
+            # If the link contains "torrent", send it to the channel
             if "torrent" in result:  # Simple check for the presence of "torrent"
                 await client.send_message(CHAT_ID, f"/qbleech {result}")
 
         except Exception as e:
             print(f"Error processing {link}: {e}")
+
+    # After sending the torrent links, update the message to show success
+    await wait_msg.edit("<i>Torrent Links Sent Successfully!</i>")
 
 # Inline query for bypass
 @Client.on_inline_query()
