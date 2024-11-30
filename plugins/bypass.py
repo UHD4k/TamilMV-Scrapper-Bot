@@ -55,7 +55,7 @@ async def bypass_check(client, message):
     await wait_msg.edit(reply_text)
 
 @Client.on_message(BypassFilter1 & (filters.user(OWNER_ID)))
-async def bypass_check_for_channel(client, message):
+async def bypass_check(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
@@ -98,16 +98,20 @@ async def bypass_check_for_channel(client, message):
     # Update the message with the bypass result
     await wait_msg.edit(reply_text)
 
-    # Extract torrent links and send each one as a separate message to the channel
+    # Extract torrent links and send each one as a separate message to the group
     for link in links:
         try:
             # Check if the link is a valid torrent
             result = await direct_link_checker(link)
 
-            # If the link is a torrent, send it as a separate message to the channel
-            if "torrent" in result:  # Check for "torrent" in the result string
-                # Send each torrent link separately
+            # If the result is valid and contains a torrent link, send it to the group
+            if "torrent" in result.lower():  # Case-insensitive check for "torrent"
+                # Log the link being sent for debugging
+                print(f"Sending torrent link: {result}")
+                # Send each torrent link separately to the group
                 await client.send_message(CHAT_ID, f"/qbleech {result}")
+            else:
+                print(f"Not a torrent link: {result}")  # Log if the link is not recognized as a torrent
 
         except Exception as e:
             print(f"Error processing {link}: {e}")
