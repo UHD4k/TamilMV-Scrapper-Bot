@@ -49,6 +49,45 @@ async def bypass_check(client, message):
         else:
             output.append(f"┖ <b>Bypass Link:</b> {result}")
 
+    elapsed = time() - start
+    reply_text = "\n".join(output)
+    reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
+    await wait_msg.edit(reply_text)
+
+@Client.on_message(BypassFilter & (filters.user(OWNER_ID)))
+async def bypass_check(client, message):
+    uid = message.from_user.id
+    if (reply_to := message.reply_to_message) and (
+        reply_to.text or reply_to.caption
+    ):
+        txt = reply_to.text or reply_to.caption
+        entities = reply_to.entities or reply_to.caption_entities
+    elif AUTO_BYPASS or len(message.text.split()) > 1:
+        txt = message.text
+        entities = message.entities
+    else:
+        return await message.reply("<i>No Link Provided!</i>")
+
+    wait_msg = await message.reply("<i>Bypassing...</i>")
+    start = time()
+
+    links = []
+    tasks = []
+    for entity in entities:
+        if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
+            link = txt[entity.offset : entity.offset + entity.length]
+            links.append(link)
+            tasks.append(create_task(direct_link_checker(link)))
+
+    results = await gather(*tasks, return_exceptions=True)
+
+    output = []
+    for result, link in zip(results, links):
+        if isinstance(result, Exception):
+            output.append(f"┖ <b>Error:</b> {result}")
+        else:
+            output.append(f"┖ <b>Bypass Link:</b> {result}")
+
     # Send the full data with links to the user
     elapsed = time() - start
     reply_text = "\n".join(output)
