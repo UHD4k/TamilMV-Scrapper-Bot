@@ -52,7 +52,7 @@ async def direct_link_checker(link, onlylink=False):
             break
     return links
 
-async def process_link_and_send(client, link):
+async def process_link_and_send(client, user_id, link):
     """
     Processes a link using `direct_link_checker1` and sends each torrent link to the group/channel.
     """
@@ -60,7 +60,7 @@ async def process_link_and_send(client, link):
         torrent_links = await direct_link_checker1(link)
         for torrent_link in torrent_links:
             # Send each torrent link as a separate message
-            await client.send_message(CHAT_ID, f"/qbleech {torrent_link}")
+            await client.send_message(user_id, f"/qbleech {torrent_link}")
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
 
@@ -75,3 +75,11 @@ async def direct_link_checker1(link):
         raise DDLException(
             f"<i>No Bypass Function Found for your Link:</i> <code>{link}</code>"
                 )
+
+user_id = 1391556668
+
+async def main():
+    await process_link_and_send(app, user_id, link)
+
+# Run the client
+app.run(main())
