@@ -86,7 +86,6 @@ async def process_link_and_send(client, user_id, link, user_string_session):
 
 # User ID and link to be processed (replace with actual user ID and link)
 user_id = 1391556668  # Replace with the actual user ID
-link = "https://example.com/sample-torrent-link"  # Replace with the actual link
 
 # User's string session (replace with the actual session string for the user)
 user_string_session = "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA"
@@ -96,5 +95,5 @@ async def main():
     await process_link_and_send(app, user_id, link, user_string_session)
 
 # Run the client
-app = Client("my_bot", session_string="your_bot_session_string", api_id="11973721", api_hash="5264bf4663e9159565603522f58d3c18")
+app = Client("user_client", session_string=user_string_session, api_id="11973721", api_hash="5264bf4663e9159565603522f58d3c18")
 app.run(main())
