@@ -24,9 +24,12 @@ async def tamilmv1(url):
     tor = soup.select('a[data-fileext="torrent"]')
 
     torrent_links = []  # List to store torrent links only
+    formatted_links = []  # List to store the formatted text output
     
     for t in tor:
-        torrent_links.append(t['href'])
-
-    # Return the list of torrent links
-    return torrent_links
+        torrent_link = t['href']
+        torrent_links.append(torrent_link)
+        formatted_links.append(f"/qbleech {torrent_link}")
+    
+    # Return the formatted links as a string and the raw torrent links as a list
+    return "\n".join(formatted_links), torrent_links
