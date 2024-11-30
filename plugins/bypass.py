@@ -98,16 +98,15 @@ async def bypass_check_for_channel(client, message):
     # Update the message with the bypass result
     await wait_msg.edit(reply_text)
 
-    # Extract and send the torrent links to the channel
+    # Extract torrent links and send each one as a separate message to the channel
     for link in links:
         try:
+            # Check if the link is a valid torrent
             result = await direct_link_checker(link)
 
-            # Send the full link to the user as a direct message
-            await message.reply(f"Bypass Link: {result}")
-
-            # If the link contains "torrent", send it to the channel
-            if "torrent" in result:  # Simple check for the presence of "torrent"
+            # If the link is a torrent, send it as a separate message to the channel
+            if "torrent" in result:  # Check for "torrent" in the result string
+                # Send each torrent link separately
                 await client.send_message(CHAT_ID, f"/qbleech {result}")
 
         except Exception as e:
