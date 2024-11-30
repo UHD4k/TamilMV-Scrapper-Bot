@@ -5,7 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os
-from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link
+from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link, process_link_and_send
 from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
 
