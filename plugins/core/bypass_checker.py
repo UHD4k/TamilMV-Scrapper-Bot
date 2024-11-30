@@ -5,19 +5,6 @@ from plugins.scraper import *
 import os
 CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
-fmed_list = [
-    "fembed.net",
-    "fembed.com",
-    "femax20.com",
-    "fcdn.stream",
-    "feurl.com",
-    "layarkacaxxi.icu",
-    "naniplay.nanime.in",
-    "naniplay.nanime.biz",
-    "naniplay.com",
-    "mm9842.com",
-]
-
 
 def is_excep_link(url):
     return bool(
