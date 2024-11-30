@@ -32,6 +32,8 @@ async def direct_link_checker(link, onlylink=False):
     # Scraper 
     if bool(match(r"https?:\/\/.+\.1tamilmv\.\S+", link)):
         return await tamilmv(link)
+    elif bool(match(r"https?:\/\/.+\.1tamilmv\.\S+", link)):
+        return await tamilmv1(link)
         
     # Exceptions
     elif bool(match(r"https?:\/\/.+\.technicalatg\.\S+", link)):
