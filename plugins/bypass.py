@@ -14,6 +14,7 @@ OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
 AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
+# Main bypass handler function
 @Client.on_message(BypassFilter & (filters.user(OWNER_ID)))
 async def bypass_check(client, message):
     uid = message.from_user.id
@@ -57,18 +58,21 @@ async def bypass_check(client, message):
 
     # Extract and send the torrent links to the channel
     for link in links:
-        full_link_data, torrent_links = await tamilmv(link)
+        # No need to call tamilmv, directly process the link (assuming it’s already bypassed)
+        try:
+            result = await direct_link_checker(link)
 
-        # Send the full link to the user as a direct message
-        await message.reply(full_link_data)
+            # Send the full link to the user as a direct message
+            await message.reply(f"Bypass Link: {result}")
 
-        # Send the torrent links only to the channel
-        for torrent_link in torrent_links:
-            try:
-                await client.send_message(CHAT_ID, f"/qbleech {torrent_link}")
-            except Exception as e:
-                print(f"Error sending message: {e}")
+            # If the link is a torrent, send it to the channel
+            if "torrent" in result:  # Simple check for the presence of "torrent"
+                await client.send_message(CHAT_ID, f"/qbleech {result}")
 
+        except Exception as e:
+            print(f"Error processing {link}: {e}")
+
+# Inline query for bypass
 @Client.on_inline_query()
 async def inline_query(client, query):
     text = query.query.strip()
@@ -98,4 +102,3 @@ async def inline_query(client, query):
             input_message_content=InputTextMessageContent(help_text),
         )
         await query.answer(results=[answer], cache_time=0)
-        
