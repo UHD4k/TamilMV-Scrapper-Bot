@@ -9,6 +9,7 @@ from plugins.core.bot_utils import convert_time, BypassFilter
 
 # Configs
 OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
+AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 
 @Client.on_message(BypassFilter & (user(Config.OWNER_ID)))
 async def bypass_check(client, message):
