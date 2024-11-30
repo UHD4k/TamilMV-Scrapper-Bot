@@ -54,9 +54,8 @@ async def bypass_check(client, message):
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
     await wait_msg.edit(reply_text)
 
-@Client.on_message(BypassFilter1 & (filters.user(OWNER_ID)))
+@Client.on_message(BypassFilter1 & filters.user(OWNER_ID))
 async def bypass_check_for_channel(client, message):
-    uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
     ):
@@ -66,58 +65,22 @@ async def bypass_check_for_channel(client, message):
         txt = message.text
         entities = message.entities
     else:
-        return await message.reply("<i>No Link Provided!</i>")
-
-    # Send initial "Bypassing..." message
-    wait_msg = await message.reply("<i>Bypassing...</i>")
-    start = time()
+        return  # No links provided, silently exit
 
     links = []
     tasks = []
+
+    # Extract URLs from the message
     for entity in entities:
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset : entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(direct_link_checker1(link)))
+            tasks.append(create_task(process_link_and_send(client, link)))
 
-    # Await all link checks
-    results = await gather(*tasks, return_exceptions=True)
-
-    output = []
-    for result, link in zip(results, links):
-        if isinstance(result, Exception):
-            output.append(f"┖ <b>Error:</b> {result}")
-        else:
-            output.append(f"┖ <b>Bypass Link:</b> {result}")
-
-    # Send the full data with links to the user
-    elapsed = time() - start
-    reply_text = "\n".join(output)
-    reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
-
-    # Update the message with the bypass result
-    await wait_msg.edit(reply_text)
-
-    # Extract torrent links and send each one as a separate message to the group
-    for link in links:
-        try:
-            # Check if the link is a valid torrent
-            result = await direct_link_checker1(link)
-
-            # If the result is valid and contains a torrent link, send it to the group
-            if "torrent" in result.lower():  # Case-insensitive check for "torrent"
-                # Log the link being sent for debugging
-                print(f"Sending torrent link: {result}")
-                # Send each torrent link separately to the group
-                await client.send_message(CHAT_ID, result)
-            else:
-                print(f"Not a torrent link: {result}")  # Log if the link is not recognized as a torrent
-
-        except Exception as e:
-            print(f"Error processing {link}: {e}")
-
-    # After sending the torrent links, update the message to show success
-    await wait_msg.edit("<i>Torrent Links Sent Successfully!</i>")
+    # Await all tasks for link processing
+    await gather(*tasks, return_exceptions=True)
+    
+    await message.reply("<i>Torrent Links Sent Successfully!</i>")
 
 # Inline query for bypass
 @Client.on_inline_query()
