@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import Message
 from requests_html import HTMLSession
 from dataclasses import dataclass
@@ -51,13 +51,13 @@ async def bypass_handler(client: Client, message: Message):
         # Extract the URL from the command
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            await message.reply("❌ *Usage:* `/bypass {link}`", parse_mode="markdown")
+            await message.reply("❌ *Usage:* `/bypass {link}`", parse_mode=enums.ParseMode.HTML)
             return
 
         url = command_parts[1]
 
         # Notify user
-        await message.reply("⏳ Fetching movie details, please wait...")
+        await message.reply("**⏳ Fetching movie details, please wait...**", parse_mode=enums.ParseMode.HTML)
 
         # Scrape movie details
         movie = scrape_from_url(url)
