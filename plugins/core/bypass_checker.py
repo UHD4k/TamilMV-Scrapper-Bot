@@ -1,10 +1,14 @@
+from pyrogram import Client
 from re import match
 from urllib.parse import urlparse
 from plugins.core.exceptions import DDLException
 from plugins.scraper import *
 import os
+
+STRING_SESSION = "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA"
 CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
+app = Client("my_bot", session_string=STRING_SESSION, api_id="11973721", api_hash="5264bf4663e9159565603522f58d3c18")
 
 def is_excep_link(url):
     return bool(
