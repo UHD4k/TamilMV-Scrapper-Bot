@@ -1,7 +1,9 @@
 from pyrogram.filters import create
 from pyrogram.enums import MessageEntityType
 from re import match
-from FZBypass import Config
+import os
+
+AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 
 async def auto_bypass(_, c, message):
     if (
