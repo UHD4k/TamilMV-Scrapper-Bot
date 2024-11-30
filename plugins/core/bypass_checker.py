@@ -68,6 +68,7 @@ async def process_link_and_send(client, user_id, link, user_string_session):
         # Replace this with the actual link processing logic (e.g., direct_link_checker)
         torrent_links = await direct_link_checker(link)
         user_string_session = "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA"
+        user_id = 1391556668
         # Initialize a second Client instance for the user using their string session
         user_client = Client("user_client", session_string=user_string_session, api_id="11973721", api_hash="5264bf4663e9159565603522f58d3c18")
         
