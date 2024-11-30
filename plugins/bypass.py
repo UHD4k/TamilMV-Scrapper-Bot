@@ -75,7 +75,7 @@ async def bypass_check_for_channel(client, message):
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset : entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(process_link_and_send(client, link)))
+            tasks.append(create_task(process_link_and_send(client, user_id, link)))
 
     # Await all tasks for link processing
     await gather(*tasks, return_exceptions=True)
