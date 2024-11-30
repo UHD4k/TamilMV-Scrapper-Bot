@@ -1,4 +1,5 @@
 from asyncio import create_task, gather
+from pyrogram import Client
 from pyrogram.filters import command, user
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.enums import MessageEntityType
