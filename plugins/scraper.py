@@ -24,7 +24,8 @@ async def tamilmv1(url):
     tor = soup.select('a[data-fileext="torrent"]')
 
     torrent_links = []  # List to store torrent links only
-
+    
     for t in tor:
         torrent_link = t['href']
+        torrent_links.append(torrent_link)
     return torrent_links
