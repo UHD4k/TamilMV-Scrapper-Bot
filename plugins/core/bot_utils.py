@@ -7,7 +7,7 @@ AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 
 async def auto_bypass(_, c, message):
     if (
-        Config.AUTO_BYPASS
+        AUTO_BYPASS
         and message.entities
         and not match(r"^\/(bash|shell)($| )", message.text)
         and any(
@@ -17,7 +17,7 @@ async def auto_bypass(_, c, message):
     ):
         return True
     elif (
-        not Config.AUTO_BYPASS
+        not AUTO_BYPASS
         and (txt := message.text)
         and match(rf"^\/(bypass|bp)(@{c.me.username})?($| )", txt)
         and not match(r"^\/(bash|shell)($| )", txt)
