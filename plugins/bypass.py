@@ -1,23 +1,17 @@
-from time import time
-from asyncio import create_task, gather, sleep as asleep
+from asyncio import create_task, gather
 from pyrogram.filters import command, user
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    InlineQueryResultArticle,
-    InputTextMessageContent,
-)
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
-from FZBypass import Config, Bypass, BOT_START
+from FZBypass import Config
 from FZBypass.core.bypass_checker import direct_link_checker, is_excep_link
-from FZBypass.core.bot_utils import AuthChatsTopics, convert_time, BypassFilter
+from FZBypass.core.bot_utils import convert_time, BypassFilter
 
-@Client.on_message(BypassFilter & (user(Config.OWNER_ID) | AuthChatsTopics))
+@Client.on_message(BypassFilter & (user(Config.OWNER_ID)))
 async def bypass_check(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
-        reply_to.text is not None or reply_to.caption is not None
+        reply_to.text or reply_to.caption
     ):
         txt = reply_to.text or reply_to.caption
         entities = reply_to.entities or reply_to.caption_entities
@@ -30,154 +24,55 @@ async def bypass_check(client, message):
     wait_msg = await message.reply("<i>Bypassing...</i>")
     start = time()
 
-    link, tlinks, no = "", [], 0
-    atasks = []
-    for enty in entities:
-        if enty.type == MessageEntityType.URL:
-            link = txt[enty.offset : (enty.offset + enty.length)]
-        elif enty.type == MessageEntityType.TEXT_LINK:
-            link = enty.url
+    links = []
+    tasks = []
+    for entity in entities:
+        if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
+            link = txt[entity.offset : entity.offset + entity.length]
+            links.append(link)
+            tasks.append(create_task(direct_link_checker(link)))
 
-        if link:
-            no += 1
-            tlinks.append(link)
-            atasks.append(create_task(direct_link_checker(link)))
-            link = ""
+    results = await gather(*tasks, return_exceptions=True)
 
-    completed_tasks = await gather(*atasks, return_exceptions=True)
-
-    parse_data = []
-    for result, link in zip(completed_tasks, tlinks):
+    output = []
+    for result, link in zip(results, links):
         if isinstance(result, Exception):
-            bp_link = f"\n┖ <b>Bypass Error:</b> {result}"
-        elif is_excep_link(link):
-            bp_link = result
-        elif isinstance(result, list):
-            bp_link, ui = "", "┖"
-            for ind, lplink in reversed(list(enumerate(result, start=1))):
-                bp_link = f"\n{ui} <b>{ind}x Bypass Link:</b> {lplink}" + bp_link
-                ui = "┠"
+            output.append(f"┖ <b>Error:</b> {result}")
         else:
-            bp_link = f"\n┖ <b>Bypass Link:</b> {result}"
+            output.append(f"┖ <b>Bypass Link:</b> {result}")
 
-        if is_excep_link(link):
-            parse_data.append(f"{bp_link}\n\n━━━━━━━✦✗✦━━━━━━━\n\n")
-        else:
-            parse_data.append(
-                f"┎ <b>Source Link:</b> {link}{bp_link}\n\n━━━━━━━✦✗✦━━━━━━━\n\n"
-            )
-
-    end = time()
-
-    if len(parse_data) != 0:
-        parse_data[-1] = (
-            parse_data[-1]
-            + f"┎ <b>Total Links : {no}</b>\n┠ <b>Results In <code>{convert_time(end - start)}</code></b> !\n┖ <b>By </b>{message.from_user.mention} ( #ID{message.from_user.id} )"
-        )
-    tg_txt = "━━━━━━━✦✗✦━━━━━━━\n\n"
-    for tg_data in parse_data:
-        tg_txt += tg_data
-        if len(tg_txt) > 4000:
-            await wait_msg.edit(tg_txt, disable_web_page_preview=True)
-            wait_msg = await message.reply(
-                "<i>Fetching...</i>", reply_to_message_id=wait_msg.id
-            )
-            tg_txt = ""
-            await asleep(2.5)
-
-    if tg_txt != "":
-        await wait_msg.edit(tg_txt, disable_web_page_preview=True)
-    else:
-        await wait_msg.delete()
-
+    elapsed = time() - start
+    reply_text = "\n".join(output)
+    reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
+    await wait_msg.edit(reply_text)
 
 @Client.on_inline_query()
 async def inline_query(client, query):
-    answers = []
-    string = query.query.lower()
-    if string.startswith("!bp "):
-        link = string.strip("!bp ")
+    text = query.query.strip()
+    if text.startswith("!bp "):
+        link = text[4:]
         start = time()
         try:
-            bp_link = await direct_link_checker(link, True)
-            end = time()
-
-            if not is_excep_link(link):
-                bp_link = (
-                    f"┎ <b>Source Link:</b> {link}\n┃\n┖ <b>Bypass Link:</b> {bp_link}"
-                )
-            answers.append(
-                InlineQueryResultArticle(
-                    title="✅️ Bypass Link Success !",
-                    input_message_content=InputTextMessageContent(
-                        f"{bp_link}\n\n✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏\n\n🧭 <b>Took Only <code>{convert_time(end - start)}</code></b>",
-                        disable_web_page_preview=True,
-                    ),
-                    description=f"Bypass via !bp {link}",
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    "Bypass Again",
-                                    switch_inline_query_current_chat="!bp ",
-                                )
-                            ]
-                        ]
-                    ),
-                )
-            )
+            result = await direct_link_checker(link, True)
+            elapsed = time() - start
+            response = f"┎ <b>Source Link:</b> {link}\n┖ <b>Bypass Link:</b> {result}\n\n<b>Time:</b> {convert_time(elapsed)}"
         except Exception as e:
-            bp_link = f"<b>Bypass Error:</b> {e}"
-            end = time()
+            response = f"<b>Error:</b> {e}"
 
-            answers.append(
-                InlineQueryResultArticle(
-                    title="❌️ Bypass Link Error !",
-                    input_message_content=InputTextMessageContent(
-                        f"┎ <b>Source Link:</b> {link}\n┃\n┖ {bp_link}\n\n✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏\n\n🧭 <b>Took Only <code>{convert_time(end - start)}</code></b>",
-                        disable_web_page_preview=True,
-                    ),
-                    description=f"Bypass via !bp {link}",
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    "Bypass Again",
-                                    switch_inline_query_current_chat="!bp ",
-                                )
-                            ]
-                        ]
-                    ),
-                )
-            )
-
-    else:
-        answers.append(
-            InlineQueryResultArticle(
-                title="♻️ Bypass Usage: In Line",
-                input_message_content=InputTextMessageContent(
-                    """<b><i>FZ Bypass Bot!</i></b>
-    
-    <i>A Powerful Elegant Multi Threaded Bot written in Python... which can Bypass Various Shortener Links, Scrape links, and More ... </i>
-    
-🎛 <b>Inline Use :</b> !bp [Single Link]""",
-                ),
-                description="Bypass via !bp [link]",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                "FZ Channel", url="https://t.me/FXTorrentz"
-                            ),
-                            InlineKeyboardButton(
-                                "Try Bypass", switch_inline_query_current_chat="!bp "
-                            ),
-                        ]
-                    ]
-                ),
-            )
+        answer = InlineQueryResultArticle(
+            title="Bypass Result",
+            input_message_content=InputTextMessageContent(response, disable_web_page_preview=True),
+            description=f"Bypass link: {link}",
         )
-    try:
-        await query.answer(results=answers, cache_time=0)
-    except QueryIdInvalid:
-        pass
+        await query.answer(results=[answer], cache_time=0)
+    else:
+        help_text = """<b><i>FZ Bypass Bot</i></b>
+        
+<i>Use the inline query format: !bp [link]</i>
+"""
+        answer = InlineQueryResultArticle(
+            title="Bypass Help",
+            input_message_content=InputTextMessageContent(help_text),
+        )
+        await query.answer(results=[answer], cache_time=0)
+        
