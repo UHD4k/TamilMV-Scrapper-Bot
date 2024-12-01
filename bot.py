@@ -8,7 +8,7 @@ from route import web_server
 
 id_pattern = re.compile(r'^.\d+$') 
 
-BOT_TOKEN = os.environ.get("TOKEN", "7713324413:AAFmzBFWAliE7cpUp_oq2qhX2UC-4INSGzM")
+BOT_TOKEN = os.environ.get("TOKEN", "7713324413:AAGYzSbK5Z9KbhaJGiQdA7Rs-YaYLk4fNiU")
 API_ID = int(os.environ.get("API_ID",11973721))
 API_HASH = os.environ.get("API_HASH", "5264bf4663e9159565603522f58d3c18")
 BOT_UPTIME  = time.time()
