@@ -4,18 +4,19 @@ from pyrogram.filters import command, user
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
-import os
+import os, re
 from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link, process_link_and_send
 from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
 
 # Configs
-OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
+id_pattern = re.compile(r'^.\d+$') 
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMINS', '1391556668 1242556540').split()]
 AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
 # Main bypass handler function
-@Client.on_message(BypassFilter & (filters.user(OWNER_ID)))
+@Client.on_message(BypassFilter & (filters.user(ADMINS)))
 async def bypass_check(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
@@ -54,7 +55,7 @@ async def bypass_check(client, message):
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
     await wait_msg.edit(reply_text)
 
-@Client.on_message(BypassFilter1 & filters.user(OWNER_ID))
+@Client.on_message(BypassFilter1 & filters.user(ADMINS))
 async def bypass_check_for_channel(client, message):
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
