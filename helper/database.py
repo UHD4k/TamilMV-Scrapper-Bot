@@ -5,7 +5,7 @@ from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 ADMIN = int(os.environ.get("ADMIN", 1391556668))
 
 DB_NAME = os.environ.get("DB_NAME","Cluster0")
-DB_URL = os.environ.get("DB_URL","mongodb+srv://khajawazeer:<7867860>@cluster0.tapo5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DB_URL = os.environ.get("DB_URL","mongodb+srv://karthikgaming:KarthikUK007@cluster0.ach7nle.mongodb.net/?retryWrites=true&w=majority")
 mongo = MongoClient(DB_URL)
 db = mongo[DB_NAME]
 dbcol = db["USER"]
