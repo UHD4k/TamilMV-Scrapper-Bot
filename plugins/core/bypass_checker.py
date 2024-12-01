@@ -1,4 +1,4 @@
-from bot import user_client  # Import user_client
+from bot import Bot  # Import user_client
 from pyrogram import Client
 from re import match
 from urllib.parse import urlparse
@@ -68,6 +68,9 @@ async def process_link_and_send(client, user_id, link):
         # Process link and extract torrent links
         torrent_links = await direct_link_checker1(link)
         user_id = 1391556668
+        bot = Bot()
+        await bot.start()  # Make sure both bot and user_client are running
+        user_client = bot.user_client
         # Send each torrent link to the group/channel using user_client
         await user_client.start()  # Start user_client
         for torrent_link in torrent_links:
