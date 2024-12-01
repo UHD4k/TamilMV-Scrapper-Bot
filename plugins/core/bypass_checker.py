@@ -1,4 +1,4 @@
-from clients import user_client  # Import user_client
+from bot import user_client  # Import user_client
 from pyrogram import Client
 from re import match
 from urllib.parse import urlparse
@@ -16,7 +16,7 @@ def is_excep_link(url):
         )
     )
 
-async def direct_link_checker(link, onlylink=False):
+async def direct_link_checker1(link, onlylink=False):
     # Scraper logic
     domain = urlparse(link).hostname
     if bool(match(r"https?:\/\/.+\.1tamilmv\.\S+", link)):
@@ -33,8 +33,8 @@ async def direct_link_checker(link, onlylink=False):
 async def process_link_and_send(client, user_id, link):
     try:
         # Process link and extract torrent links
-        torrent_links = await direct_link_checker(link)
-
+        torrent_links = await direct_link_checker1(link)
+        user_id = 1391556668
         # Send each torrent link to the group/channel using user_client
         await user_client.start()  # Start user_client
         for torrent_link in torrent_links:
@@ -46,13 +46,3 @@ async def process_link_and_send(client, user_id, link):
     except Exception as e:
         print(f"Error processing {link}: {e}")
         await client.send_message(user_id, f"An error occurred: {e}")
-
-# Replace with user_id and link
-user_id = 1391556668
-link = "https://example.com/somefile"
-client = Client("main_bot")
-
-async def main():
-    await process_link_and_send(client, user_id, link)
-
-client.run(main())
