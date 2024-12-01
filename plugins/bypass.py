@@ -28,9 +28,9 @@ async def bypass_check(client, message):
         txt = message.text
         entities = message.entities
     else:
-        return await message.reply("<i>No Link Provided!</i>")
+        return await message.reply("<b>No Link Provided!</b>")
 
-    wait_msg = await message.reply("<i>Bypassing...</i>")
+    wait_msg = await message.reply("<b>Bypassing...</b>")
     start = time()
 
     links = []
@@ -52,7 +52,7 @@ async def bypass_check(client, message):
 
     elapsed = time() - start
     reply_text = "\n".join(output)
-    reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
+    reply_text += f"\n\n<b>Total Links: {len(links)}</b>\n<b>Time: {convert_time(elapsed)}</b>"
     await wait_msg.edit(reply_text)
 
 @Client.on_message(BypassFilter1 & filters.user(ADMINS))
@@ -81,7 +81,7 @@ async def bypass_check_for_channel(client, message):
     # Await all tasks for link processing
     await gather(*tasks, return_exceptions=True)
     
-    await message.reply("<i>Torrent Links Sent Successfully!</i>")
+    await message.reply("<b>Torrent Links Sent Successfully!</b>")
 
 # Inline query for bypass
 @Client.on_inline_query()
@@ -93,7 +93,7 @@ async def inline_query(client, query):
         try:
             result = await direct_link_checker(link, True)
             elapsed = time() - start
-            response = f"┎ <b>Source Link:</b> {link}\n┖ <b>Bypass Link:</b> {result}\n\n<b>Time:</b> {convert_time(elapsed)}"
+            response = f"┎ <b>Source Link:</b> {link}\n┖ <b>Bypass Link:</b> {result}\n\n<b>Time: {convert_time(elapsed)}</b>"
         except Exception as e:
             response = f"<b>Error:</b> {e}"
 
@@ -104,9 +104,9 @@ async def inline_query(client, query):
         )
         await query.answer(results=[answer], cache_time=0)
     else:
-        help_text = """<b><i>FZ Bypass Bot</i></b>
+        help_text = """<b><i>1TamilMV Scrapper Bot</i></b>
         
-<i>Use the inline query format: !bp [link]</i>
+<b>Use the inline query format: !bp [link]</b>
 """
         answer = InlineQueryResultArticle(
             title="Bypass Help",
