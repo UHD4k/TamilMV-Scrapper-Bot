@@ -26,10 +26,10 @@ async def direct_link_checker(link, onlylink=False):
         
     # Exceptions
     elif bool(match(r"https?:\/\/.+\.technicalatg\.\S+", link)):
-        raise DDLException("Bypass Not Allowed !")
+        raise DDLException("<b>Bypass Not Allowed !</b>")
     else:
         raise DDLException(
-            f"<i>No Bypass Function Found for your Link :</i> <code>{link}</code>"
+            f"<b>No Bypass Function Found for your Link :</b> <code>{link}</code>"
         )
 
     if onlylink:
@@ -69,5 +69,5 @@ async def direct_link_checker1(link):
         return await tamilmv1(link)
     else:
         raise DDLException(
-            f"<i>No Bypass Function Found for your Link:</i> <code>{link}</code>"
+            f"<b>No Bypass Function Found for your Link:</b> <code>{link}</code>"
         )
