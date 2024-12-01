@@ -55,48 +55,34 @@ async def bypass_check(client, message):
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
     await wait_msg.edit(reply_text)
 
+@Client.on_message(BypassFilter1 & filters.user(OWNER_ID))
+async def bypass_check_for_channel(client, message):
+    if (reply_to := message.reply_to_message) and (
+        reply_to.text or reply_to.caption
+    ):
+        txt = reply_to.text or reply_to.caption
+        entities = reply_to.entities or reply_to.caption_entities
+    elif AUTO_BYPASS or len(message.text.split()) > 1:
+        txt = message.text
+        entities = message.entities
+    else:
+        return  # No links provided, silently exit
 
-# Start bot and user_client in an async function
-async def start_bot():
-    bot = Bot()
-    await bot.start()  # Make sure both bot and user_client are running
-    user_client = bot.user_client  # Access user_client instance
+    links = []
+    tasks = []
+    user_id = 1391556668  # Access user_client instance
 
-    @user_client.on_message(BypassFilter1 & filters.user(OWNER_ID))
-    async def bypass_check_for_channel(client, message):
-        if (reply_to := message.reply_to_message) and (
-            reply_to.text or reply_to.caption
-        ):
-            txt = reply_to.text or reply_to.caption
-            entities = reply_to.entities or reply_to.caption_entities
-        elif AUTO_BYPASS or len(message.text.split()) > 1:
-            txt = message.text
-            entities = message.entities
-        else:
-            return  # No links provided, silently exit
+    # Extract URLs from the message
+    for entity in entities:
+        if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
+            link = txt[entity.offset : entity.offset + entity.length]
+            links.append(link)
+            tasks.append(create_task(process_link_and_send(client, user_id, link)))
 
-        links = []
-        tasks = []
-        user_id = 1391556668  # Access user_client instance
-
-        # Extract URLs from the message
-        for entity in entities:
-            if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
-                link = txt[entity.offset : entity.offset + entity.length]
-                links.append(link)
-                tasks.append(create_task(process_link_and_send(client, user_id, link)))
-
-        # Await all tasks for link processing
-        await gather(*tasks, return_exceptions=True)
-        
-        await message.reply("<i>Torrent Links Sent Successfully!</i>")
-
-
-# Running the bot
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(start_bot())
+    # Await all tasks for link processing
+    await gather(*tasks, return_exceptions=True)
     
+    await message.reply("<b>Torrent Links Sent Successfully!</b>")
 
 # Inline query for bypass
 @Client.on_inline_query()
