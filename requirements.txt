@@ -1,11 +1,8 @@
 TgCrypto
 pyrogram
 pyromod==1.5
-pymongo
 dnspython==2.1.0
 httpcore
-googletrans==4.0.0rc1
-gTTS
 aiohttp==3.8.4
 pytz==2023.3
 cloudscraper==1.2.71
