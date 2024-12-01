@@ -43,7 +43,7 @@ async def auto_bypass1(_, c, message):
     elif (
         not AUTO_BYPASS
         and (txt := message.text)
-        and match(rf"^\/(send|sendtorrent)(@{c.me.username})?($| )", txt)
+        and match(rf"^\/(send|sendtorrents)(@{c.me.username})?($| )", txt)
         and not match(r"^\/(bash|shell)($| )", txt)
     ):
         return True
