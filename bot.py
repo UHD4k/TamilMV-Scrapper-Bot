@@ -14,7 +14,7 @@ API_HASH = os.environ.get("API_HASH", "5264bf4663e9159565603522f58d3c18")
 BOT_UPTIME  = time.time()
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001821439025"))
 WEBHOOK = bool(os.environ.get("WEBHOOK", True))
-ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1391556668').split()]
+ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1391556668 1242556540').split()]
 
 class Bot(Client):
 
