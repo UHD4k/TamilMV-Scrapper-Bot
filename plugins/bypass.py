@@ -5,7 +5,6 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os
-from bot import Bot
 from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link, process_link_and_send
 from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
@@ -70,19 +69,18 @@ async def bypass_check_for_channel(client, message):
 
     links = []
     tasks = []
-    user_id = 1391556668  # Access user_client instance
 
     # Extract URLs from the message
     for entity in entities:
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset : entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(process_link_and_send(client, user_id, link)))
+            tasks.append(create_task(process_link_and_send(client, link)))
 
     # Await all tasks for link processing
     await gather(*tasks, return_exceptions=True)
     
-    await message.reply("<b>Torrent Links Sent Successfully!</b>")
+    await message.reply("<i>Torrent Links Sent Successfully!</i>")
 
 # Inline query for bypass
 @Client.on_inline_query()
