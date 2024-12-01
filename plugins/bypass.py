@@ -69,7 +69,6 @@ async def bypass_check_for_channel(client, message):
 
     links = []
     tasks = []
-    user_string_session = "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA"
     user_id = 1391556668
 
     # Extract URLs from the message
@@ -77,7 +76,7 @@ async def bypass_check_for_channel(client, message):
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset : entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(process_link_and_send(client, user_id, link, user_string_session)))
+            tasks.append(create_task(process_link_and_send(client, user_id, link)))
 
     # Await all tasks for link processing
     await gather(*tasks, return_exceptions=True)
