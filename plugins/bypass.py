@@ -5,6 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os
+from bot import Bot
 from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link, process_link_and_send
 from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
@@ -54,7 +55,11 @@ async def bypass_check(client, message):
     reply_text += f"\n\n<b>Total Links:</b> {len(links)}\n<b>Time:</b> {convert_time(elapsed)}"
     await wait_msg.edit(reply_text)
 
-@Client.on_message(BypassFilter1 & filters.user(OWNER_ID))
+bot = Bot()
+await bot.start()  # Make sure both bot and user_client are running
+user_client = bot.user_client  # Access user_client instance
+
+@user_client.on_message(BypassFilter1 & filters.user(OWNER_ID))
 async def bypass_check_for_channel(client, message):
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
@@ -69,7 +74,7 @@ async def bypass_check_for_channel(client, message):
 
     links = []
     tasks = []
-    user_id = 1391556668
+    user_id = 1391556668  # Access user_client instance
 
     # Extract URLs from the message
     for entity in entities:
