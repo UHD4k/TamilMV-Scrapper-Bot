@@ -5,6 +5,7 @@ from pytz import timezone
 from pyrogram.raw.all import layer
 from aiohttp import web
 from route import web_server
+import asyncio
 
 id_pattern = re.compile(r'^.\d+$')
 
@@ -16,8 +17,10 @@ LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001821439025"))
 WEBHOOK = bool(os.environ.get("WEBHOOK", True))
 ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1391556668').split()]
 
-# User string session for `user_client`
-USER_STRING_SESSION = os.environ.get("USER_STRING_SESSION", "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA")
+USER_STRING_SESSION = os.environ.get(
+    "USER_STRING_SESSION",
+    "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA"
+)
 
 class Bot(Client):
     def __init__(self):
@@ -29,7 +32,6 @@ class Bot(Client):
             workers=200,
             plugins={"root": "plugins"},
         )
-        # Initialize user_client
         self.user_client = Client(
             "user_client",
             session_string=USER_STRING_SESSION,
@@ -38,14 +40,13 @@ class Bot(Client):
         )
 
     async def start(self):
-        # Start the bot client
+        # Start both bot and user_client
         await super().start()
-        # Start the user client
         await self.user_client.start()
         me = await self.get_me()
         self.mention = me.mention
         self.username = me.username  
-        self.uptime = BOT_UPTIME          
+        self.uptime = BOT_UPTIME
         print(f"{me.first_name} is Started...✨️\nMade By :- https://t.me/Star_Bots_Tamil")
         if WEBHOOK:
             app = web.AppRunner(await web_server())
@@ -66,11 +67,26 @@ class Bot(Client):
                 print("Please Make This Bot Admin in Your Log Channel")
 
     async def stop(self, *args):
-        # Stop the user client
+        # Stop both bot and user_client
         await self.user_client.stop()
-        # Stop the bot client
         await super().stop()
         print("Bot Stopped... Bye")
 
 
-Bot().run()
+async def main():
+    """
+    Main function to start the bot and prevent exiting.
+    """
+    bot = Bot()
+    await bot.start()
+    print("Bot and user_client are running.")
+    try:
+        await asyncio.Event().wait()  # Keep the event loop running
+    except (KeyboardInterrupt, SystemExit):
+        print("Shutting down...")
+        await bot.stop()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+    
