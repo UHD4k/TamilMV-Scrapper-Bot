@@ -23,7 +23,7 @@ WEBHOOK = bool(os.environ.get("WEBHOOK", True))
 ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1391556668 1242556540').split()]
 STRING_SESSION = os.environ.get("STRING_SESSION", "1BVtsOKEBu5Pf_Oesjuxt4TIzNijt1iMjJ8hEa3xtURQFrsd0GFYLhS_XFm2iJ61NfFeKR5icfMSu_SWH3eRvvdZ-X7IyOVFZuQ4sHKoiju_WXCH4uQqqd7vB7_9hGyMbDk7mUgjVKNkRg0trupt-5mu8pAeWAZ3US61kBnLKvsMYSjiaiL3uWI3UDfzyNQzFhf_hXWF_XskD0QrMPS87wEd85iNzXBgBE9Sae2haJ8YppGWxhcGtmJDSqHnDSlxh2dFLBZ1K_o7zxE6i1FrOaqEL_gKW87xqc2W43kCsUj-s9A9GyXdP7aUxu1Mku5j3GyMxEWS79Yku7AfxyeGUYhTw5dXGScE=")
 
-class bot(Client):
+class Bot(Client):
 
     def __init__(self):
         super().__init__(
@@ -63,7 +63,7 @@ class bot(Client):
         print("Bot Stopped... Bye")
        
 if STRING_SESSION:
-    apps = [Client2,bot]
+    apps = [Client2,Bot]
     for app in apps:
         app.start()
     idle()
@@ -71,4 +71,4 @@ if STRING_SESSION:
         app.stop()
     
 else:
-    bot().run()
+    Bot().run()
