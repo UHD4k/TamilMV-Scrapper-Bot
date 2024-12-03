@@ -3,13 +3,15 @@ from urllib.parse import urlparse
 from plugins.core.exceptions import DDLException
 from plugins.scraper import *
 import os
+from telethon import TelegramClient
+from telethon.sessions import StringSession
 
 API_ID = int(os.environ.get("API_ID",11973721))
 API_HASH = os.environ.get("API_HASH", "5264bf4663e9159565603522f58d3c18")
 STRING_SESSION = os.environ.get("STRING_SESSION", "BQGC3RAANsUaEkcicYxlinT7b-sZqSEmmB3k0U5ejPI11DfFNZWgw95JzOZzClAtOggpEERj6Uw7_Vc4QfYaOZEm9YovvszyJzdZOyrkhgYbE2W4LhtoGkIxh184OswP_atDNQIXEDPzV_8mYtc-9JlilUumlfIDpd-YwSRWYPefy2Yvdvs00q7b5UuMPlVG_psmZWr7Plwp2Z3jscZ6ZoltifWu4MbIvODdxvMMTOjRUNOLHgnlGxanFAiBQn0vD7e8rceLlGWXZ9nKvlQitBvIB4vbUBOIiAglexGoRJZxG0z1dSSBdRiO5jp7QG0vOiNcT-Y7JNaNi2MxwTWIjK6za76X7AAAAABS8Xg8AA")
 CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
-app = Client("starBots", api_id=API_ID, api_hash=API_HASH, session_string=STRING_SESSION)
+app = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH).start()
 
 def is_excep_link(url):
     return bool(
