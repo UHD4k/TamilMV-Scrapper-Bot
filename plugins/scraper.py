@@ -1,9 +1,6 @@
 from cloudscraper import create_scraper
 from re import sub
 from bs4 import BeautifulSoup
-
-def create_scraper():
-    return HTMLSession()
     
 async def tamilmv(url):
     cget = create_scraper().request
