@@ -66,23 +66,27 @@ async def send_torrents(client, message):
         txt = message.text
         entities = message.entities
     else:
-        return  # No links provided, silently exit
+        await message.reply("<b>No links provided!</b>")
+        return
 
     links = []
     tasks = []
 
-    # Extract URLs from the message
     for entity in entities:
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
-            link = txt[entity.offset : entity.offset + entity.length]
+            link = txt[entity.offset:entity.offset + entity.length]
             links.append(link)
             tasks.append(create_task(process_link_and_send(client, link)))
 
-    # Await all tasks for link processing
-    await gather(*tasks, return_exceptions=True)
-    
-    await message.reply("<b>Torrent Links Sent Successfully!</b>")
-
+    if tasks:
+        results = await gather(*tasks, return_exceptions=True)
+        for result in results:
+            if isinstance(result, Exception):
+                print(f"Error during processing: {result}")
+        await message.reply("<b>Torrent Links Sent Successfully!</b>")
+    else:
+        await message.reply("<b>No valid links found in the message!</b>")
+        
 # Inline query for bypass
 @Client.on_inline_query()
 async def inline_query(client, query):
