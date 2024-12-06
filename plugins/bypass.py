@@ -91,8 +91,10 @@ async def send_torrents(client, message):
 @Client.on_inline_query()
 async def inline_query(client, query):
     text = query.query.strip()
-    if text.startswith("!bp "):
-        link = text[4:]
+
+    # Check if the text is not empty and treat it as a link
+    if text:
+        link = text
         start = time()
         try:
             result = await direct_link_checker(link, True)
@@ -108,12 +110,14 @@ async def inline_query(client, query):
         )
         await query.answer(results=[answer], cache_time=0)
     else:
+        # Provide help text if the query is empty
         help_text = """<b><i>1TamilMV Scrapper Bot</i></b>
         
-<b>Use the inline query format: !bp [link]</b>
+<b>Use the inline query format: [link]</b>
 """
         answer = InlineQueryResultArticle(
             title="Bypass Help",
             input_message_content=InputTextMessageContent(help_text),
         )
         await query.answer(results=[answer], cache_time=0)
+        
