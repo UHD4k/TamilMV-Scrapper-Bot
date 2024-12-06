@@ -8,14 +8,6 @@ import os, re
 from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link, process_link_and_send
 from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
 from time import time
-from telethon import TelegramClient
-from telethon.sessions import StringSession
-
-API_ID = int(os.environ.get("API_ID",11973721))
-API_HASH = os.environ.get("API_HASH", "5264bf4663e9159565603522f58d3c18")
-STRING_SESSION = os.environ.get("STRING_SESSION", "1BVtsOKEBu5Pf_Oesjuxt4TIzNijt1iMjJ8hEa3xtURQFrsd0GFYLhS_XFm2iJ61NfFeKR5icfMSu_SWH3eRvvdZ-X7IyOVFZuQ4sHKoiju_WXCH4uQqqd7vB7_9hGyMbDk7mUgjVKNkRg0trupt-5mu8pAeWAZ3US61kBnLKvsMYSjiaiL3uWI3UDfzyNQzFhf_hXWF_XskD0QrMPS87wEd85iNzXBgBE9Sae2haJ8YppGWxhcGtmJDSqHnDSlxh2dFLBZ1K_o7zxE6i1FrOaqEL_gKW87xqc2W43kCsUj-s9A9GyXdP7aUxu1Mku5j3GyMxEWS79Yku7AfxyeGUYhTw5dXGScE=")
-
-app = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH).start()
 
 # Configs
 id_pattern = re.compile(r'^.\d+$') 
@@ -60,7 +52,7 @@ async def bypass(client, message):
 
     elapsed = time() - start
     reply_text = "\n".join(output)
-    reply_text += f"\n\n<b>Total Links: {len(links)}</b>\n<b>Time: {convert_time(elapsed)}</b>"
+    reply_text += f"\n\n<b>Total Links: {len(links)}</b>\n<b>Time :- {convert_time(elapsed)}</b>"
     await wait_msg.edit(reply_text)
 
 @Client.on_message(BypassFilter1 & filters.user(ADMINS))
@@ -84,7 +76,7 @@ async def send_torrents(client, message):
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset:entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(process_link_and_send(app, link)))
+            tasks.append(create_task(process_link_and_send(client, link)))
 
     if tasks:
         results = await gather(*tasks, return_exceptions=True)
