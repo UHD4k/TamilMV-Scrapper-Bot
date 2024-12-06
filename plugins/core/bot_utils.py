@@ -67,8 +67,7 @@ def convert_time(seconds):
     for period_name, period_seconds in periods:
         if mseconds >= period_seconds:
             period_value, mseconds = divmod(mseconds, period_seconds)
-            result += f"{int(period_value)} {period_name}"
+            result += f"{int(period_value)}{period_name}"  # Removed space between value and period_name
     if result == "":
         return "0ms"
     return result
-  
