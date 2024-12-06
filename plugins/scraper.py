@@ -2,7 +2,7 @@ from cloudscraper import create_scraper
 from re import sub
 from bs4 import BeautifulSoup
     
-async def tamilmv(url):
+async def tamilmv5(url):
     cget = create_scraper().request
     resp = cget("GET", url)
     soup = BeautifulSoup(resp.text, "html.parser")
@@ -15,6 +15,44 @@ async def tamilmv(url):
         
 <b>{no}.</b> <code>{filename}</code>
 <b>┖ Links : <a href="https://t.me/share/url?url={m['href']}">Magnet 🧲</a>  | <a href="{t['href']}">Torrent 🌐</a></b>"""
+    return parse_data
+
+async def tamilmv(url):
+    cget = create_scraper().request
+    resp = cget("GET", url)
+    soup = BeautifulSoup(resp.text, "html.parser")
+    mag = soup.select('a[href^="magnet:?xt=urn:btih:"]')
+    tor = soup.select('a[data-fileext="torrent"]')
+
+    parse_data = f"<b><u>{soup.title.string.strip()}</u></b>"
+
+    def clean_filename(raw_filename):
+        filename = re.sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
+        replacements = {
+            "Tam": "Tamil",
+            "Tel": "Telugu",
+            "Hin": "Hindi",
+            "Eng": "English",
+            "Mal": "Malayalam",
+            "Kan": "Kannada",
+            "Kor": "Korean",
+            "Chi": "Chinese",
+            "Org": "Original",
+            "Auds": "Audios",
+            "Aud": "Audio",
+        }
+        for short_form, full_form in replacements.items():
+            filename = filename.replace(short_form, full_form)
+        return filename
+
+    for no, (t, m) in enumerate(zip(tor, mag), start=1):
+        if t.string:
+            filename = clean_filename(t.string)
+            parse_data += f"""
+            
+<b>{no}.</b> <code>{filename}</code>
+<b>┖ Links : <a href="https://t.me/share/url?url={m['href']}">Magnet 🧲</a>  | <a href="{t['href']}">Torrent 🌐</a></b>"""
+
     return parse_data
 
 async def tamilmv1(url):
