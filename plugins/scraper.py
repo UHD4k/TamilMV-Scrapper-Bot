@@ -27,7 +27,8 @@ async def tamilmv(url):
     def clean_filename(raw_filename):
         filename = sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
         replacements = [
-            (r"\bAuds\b", "Audios -"),
+            (r"\bAuds\b", "Audios"),
+            (r"\bAuds [\b", "Audios - ["),
             (r"\bAud\b", "Audio"),
             (r"\bOrg\b", "Original"),
             (r"\bTam\b", "Tamil"),
