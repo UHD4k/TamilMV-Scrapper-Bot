@@ -10,7 +10,7 @@ async def tamilmv(url):
     tor = soup.select('a[data-fileext="torrent"]')
     parse_data = f"<b><u>{soup.title.string}</u></b>"
     for no, (t, m) in enumerate(zip(tor, mag), start=1):
-        filename = sub(r"www\S+|\- |\.torrent", "", t.string)
+        filename = sub(r"www\S+|\.torrent", "", t.string)
         parse_data += f"""
         
 <b>{no}.</b> <code>{filename}</code>
@@ -56,7 +56,7 @@ async def tamilmv2(url):
     for t in tor:
         if t.string:
             torrent_link = t['href']
-            filename = sub(r"www\S+|\- |\.torrent", "", t.string.strip())
+            filename = sub(r"www\S+|\.torrent", "", t.string.strip())
             torrent_links.append({'link': torrent_link, 'filename': filename})
     
     return torrent_links
