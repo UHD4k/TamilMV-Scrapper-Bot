@@ -56,7 +56,7 @@ async def direct_link_checker(link, onlylink=False):
             break
     return links
 
-async def process_link_and_send(app, link):
+async def process_link_and_send(client, link):
     """
     Processes a link using `direct_link_checker1` and sends each torrent link and filename to the group/channel.
     """
