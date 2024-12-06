@@ -17,7 +17,7 @@ CHAT_ID = int(os.environ.get("CHAT_ID", -1001542301808))
 
 # Main bypass handler function
 @Client.on_message(BypassFilter & (filters.user(ADMINS)))
-async def bypass_check(client, message):
+async def bypass(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
@@ -56,7 +56,7 @@ async def bypass_check(client, message):
     await wait_msg.edit(reply_text)
 
 @Client.on_message(BypassFilter1 & filters.user(ADMINS))
-async def bypass_check_for_channel(client, message):
+async def send_torrents(client, message):
     if (reply_to := message.reply_to_message) and (
         reply_to.text or reply_to.caption
     ):
