@@ -50,7 +50,7 @@ async def auto_bypass1(_, c, message):
     if (
         not AUTO_BYPASS
         and (txt := message.text)
-        and match(rf"^\/(st|send_torrents)(@{c.me.username})?($| )", txt)
+        and match(rf"^\/(st|send_torrents|sendtorrents)(@{c.me.username})?($| )", txt)
         and not match(r"^\/(bash|shell)($| )", txt)
     ):
         return True
