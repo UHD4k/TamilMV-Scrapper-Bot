@@ -66,7 +66,7 @@ async def process_link_and_send(client, link):
             torrent_link = torrent['link']
             filename = torrent['filename']
             # Send each torrent link and filename as a separate message
-            await app.send_message(CHAT_ID, f"<b>/qbleech {torrent_link}\n<b>Filename :-</b> <code>{filename}</code>", parse_mode=enums.ParseMode.HTML)
+            await app.send_message(CHAT_ID, f"<b>/qbleech {torrent_link}\nFilename :-</b> <code>{filename}</code>", parse_mode=enums.ParseMode.HTML)
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
 
