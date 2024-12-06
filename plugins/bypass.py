@@ -76,7 +76,7 @@ async def send_torrents(client, message):
         if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
             link = txt[entity.offset:entity.offset + entity.length]
             links.append(link)
-            tasks.append(create_task(process_link_and_send(client, link)))
+            tasks.append(create_task(process_link_and_send(app, link)))
 
     if tasks:
         results = await gather(*tasks, return_exceptions=True)
