@@ -26,21 +26,22 @@ async def tamilmv(url):
     parse_data = f"<b><u>{soup.title.string.strip()}</u></b>"
     def clean_filename(raw_filename):
         filename = sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
-        replacements = {
-            "Tam": "Tamil",
-            "Tel": "Telugu",
-            "Hin": "Hindi",
-            "Eng": "English",
-            "Mal": "Malayalam",
-            "Kan": "Kannada",
-            "Kor": "Korean",
-            "Chi": "Chinese",
-            "Org": "Original",
-            "Auds": "Audios",
-            "Aud": "Audio",
-        }
-        for short_form, full_form in replacements.items():
-            filename = filename.replace(short_form, full_form)
+        replacements = [
+            (r"\bAuds\b", "Audios -"),
+            (r"\bAud\b", "Audio"),
+            (r"\bOrg\b", "Original"),
+            (r"\bTam\b", "Tamil"),
+            (r"\bTel\b", "Telugu"),
+            (r"\bHin\b", "Hindi"),
+            (r"\bEng\b", "English"),
+            (r"\bMal\b", "Malayalam"),
+            (r"\bKan\b", "Kannada"),
+            (r"\bKor\b", "Korean"),
+            (r"\bChi\b", "Chinese"),
+        ]
+        for pattern, replacement in replacements:
+            filename = re.sub(pattern, replacement, filename)
+        
         return filename
 
     for no, (t, m) in enumerate(zip(tor, mag), start=1):
