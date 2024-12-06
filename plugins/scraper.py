@@ -23,11 +23,9 @@ async def tamilmv(url):
     soup = BeautifulSoup(resp.text, "html.parser")
     mag = soup.select('a[href^="magnet:?xt=urn:btih:"]')
     tor = soup.select('a[data-fileext="torrent"]')
-
     parse_data = f"<b><u>{soup.title.string.strip()}</u></b>"
-
     def clean_filename(raw_filename):
-        filename = re.sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
+        filename = sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
         replacements = {
             "Tam": "Tamil",
             "Tel": "Telugu",
