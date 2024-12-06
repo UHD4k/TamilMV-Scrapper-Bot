@@ -2,6 +2,9 @@ from cloudscraper import create_scraper
 from re import sub
 from bs4 import BeautifulSoup
 
+def create_scraper():
+    return HTMLSession()
+    
 async def tamilmv(url):
     cget = create_scraper().request
     resp = cget("GET", url)
@@ -18,6 +21,29 @@ async def tamilmv(url):
     return parse_data
 
 async def tamilmv1(url):
+    cget = create_scraper().request
+    try:
+        resp = cget("GET", url)
+        resp.raise_for_status()
+    except Exception as e:
+        return f"Error fetching URL: {e}"
+    
+    soup = BeautifulSoup(resp.text, "html.parser")
+    tor = soup.select('a[data-fileext="torrent"]')
+
+    torrent_links = []
+    
+    for t in tor:
+        if t.string:
+            torrent_link = t['href']
+            filename = re.sub(r"www\S+|\.torrent", "", t.string.strip())
+            # Format the response as required
+            formatted_response = f"<b>/qbleech {torrent_link}\nFilename :-</b> </code>{filename}</code>"
+            torrent_links.append(formatted_response)
+    
+    return torrent_links
+
+async def tamilmv2(url):
     cget = create_scraper().request
     try:
         resp = cget("GET", url)
