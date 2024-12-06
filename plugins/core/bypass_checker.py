@@ -1,3 +1,4 @@
+from pyrogram import enums
 from re import match
 from urllib.parse import urlparse
 from plugins.core.exceptions import DDLException
@@ -57,16 +58,17 @@ async def direct_link_checker(link, onlylink=False):
 
 async def process_link_and_send(client, link):
     """
-    Processes a link using `direct_link_checker1` and sends each torrent link to the group/channel.
+    Processes a link using `direct_link_checker1` and sends each torrent link and filename to the group/channel.
     """
     try:
         torrent_links = await direct_link_checker1(link)
-        for torrent_link in torrent_links:
-            # Send each torrent link as a separate message
-            await app.send_message(CHAT_ID, f"/qbleech {torrent_link}")
+        for torrent in torrent_links:
+            torrent_link = torrent['link']
+            filename = torrent['filename']
+            # Send each torrent link and filename as a separate message
+            await app.send_message(CHAT_ID, f"<b>/qbleech {torrent_link}\n<b>Filename :-</b> <code>{filename}</code>", parse_mode=enums.ParseMode.HTML)
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
-
 
 async def direct_link_checker1(link):
     """
