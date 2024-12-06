@@ -40,7 +40,7 @@ async def tamilmv(url):
             (r"\bChi\b", "Chinese"),
         ]
         for pattern, replacement in replacements:
-            filename = re.sub(pattern, replacement, filename)
+            filename = sub(pattern, replacement, filename)
         
         return filename
 
@@ -70,7 +70,7 @@ async def tamilmv1(url):
     for t in tor:
         if t.string:
             torrent_link = t['href']
-            filename = re.sub(r"www\S+|\.torrent", "", t.string.strip())
+            filename = sub(r"www\S+|\.torrent", "", t.string.strip())
             # Format the response as required
             formatted_response = f"<b>/qbleech {torrent_link}\nFilename :-</b> </code>{filename}</code>"
             torrent_links.append(formatted_response)
