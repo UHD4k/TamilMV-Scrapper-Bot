@@ -3,7 +3,7 @@ from pyrogram.enums import MessageEntityType
 from re import match
 import os
 
-AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "True") == "True")
+AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
 
 async def auto_bypass(_, c, message):
     if (
