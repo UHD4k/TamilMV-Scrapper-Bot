@@ -3,6 +3,7 @@ from re import sub
 from bs4 import BeautifulSoup
 from pyrogram import enums
 
+# Main Bypass
 async def tamilmv(url):
     cget = create_scraper().request
     resp = cget("GET", url)
@@ -40,6 +41,7 @@ async def tamilmv(url):
 
     return parse_data
 
+# Send Torrent Links
 async def tamilmv1(url):
     cget = create_scraper().request
     try:
@@ -80,3 +82,46 @@ async def tamilmv1(url):
             torrent_links.append(formatted_response)
     
     return torrent_links
+
+# Send Magnet Links
+async def tamilmv2(url):
+    cget = create_scraper().request
+    try:
+        resp = cget("GET", url)
+        resp.raise_for_status()
+    except Exception as e:
+        return f"Error fetching URL: {e}"
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    mag = soup.select('a[href^="magnet:?xt=urn:btih:"]')
+    magnet_links = []
+
+    def clean_filename(raw_filename):
+        filename = sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
+        replacements = [
+            (r"\bAuds\b", "Audios"),
+            (r"\bAud\b", "Audio"),
+            (r"\bOrg\b", "Original"),
+            (r"\bTam\b", "Tamil"),
+            (r"\bTel\b", "Telugu"),
+            (r"\bHin\b", "Hindi"),
+            (r"\bEng\b", "English"),
+            (r"\bMal\b", "Malayalam"),
+            (r"\bKan\b", "Kannada"),
+            (r"\bKor\b", "Korean"),
+            (r"\bChi\b", "Chinese"),
+        ]
+        for pattern, replacement in replacements:
+            filename = sub(pattern, replacement, filename)
+        
+        return filename
+
+    for idx, m in enumerate(mag, start=1):
+        raw_filename = m.get_text(strip=True) if m.get_text() else f"File {idx}"
+        filename = clean_filename(raw_filename)
+        magnet_link = m['href']
+        # Format the response as required
+        formatted_response = f"<b>{idx}. Magnet Link:</b> <code>{magnet_link}</code>\n<b>File Name:</b> <code>{filename}</code>"
+        magnet_links.append(formatted_response)
+
+    return magnet_links
