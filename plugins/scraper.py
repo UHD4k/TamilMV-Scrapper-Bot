@@ -1,7 +1,6 @@
 from cloudscraper import create_scraper
 from re import sub
 from bs4 import BeautifulSoup
-from pyrogram import enums
 
 # Main Bypass
 async def tamilmv5(url):
