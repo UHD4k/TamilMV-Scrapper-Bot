@@ -80,3 +80,27 @@ async def direct_link_checker1(link):
         raise DDLException(
             f"<b>No Bypass Function Found for your Link:</b> <code>{link}</code>"
         )
+
+# Send Magnet Links 
+async def process_link_and_send(client, link):
+    """
+    Processes a link using `direct_link_checker2` and sends each magnet link to the group/channel.
+    """
+    try:
+        magnet_links = await direct_link_checker2(link)
+        for magnet_link in magnet_links:
+            # Send each torrent link as a separate message
+            await app.send_message(CHAT_ID, f"{magnet_link.link}", parse_mode=enums.ParseMode.HTML)
+    except Exception as e:
+        print(f"Error processing {link}: {e}")  # Log the error for debugging
+
+async def direct_link_checker2(link):
+    """
+    Processes a link and extracts magnet links using `tamilmv1`.
+    """
+    if bool(match(r"https?:\/\/.+\.1tamilmv\.\S+", link)):
+        return await tamilmv2(link)
+    else:
+        raise DDLException(
+            f"<b>No Bypass Function Found for your Link:</b> <code>{link}</code>"
+        )
