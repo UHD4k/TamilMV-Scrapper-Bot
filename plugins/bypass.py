@@ -5,8 +5,8 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 import os, re
-from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, is_excep_link, process_link_and_send
-from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1
+from plugins.core.bypass_checker import direct_link_checker, direct_link_checker1, direct_link_checker2, is_excep_link, process_link_and_send, process_link_and_send1
+from plugins.core.bot_utils import convert_time, BypassFilter, BypassFilter1, BypassFilter2
 from time import time
 
 # Configs
@@ -55,6 +55,7 @@ async def bypass(client, message):
     reply_text += f"\n\n<b>Total Links: {len(links)}</b>\n<b>Time :- {convert_time(elapsed)}</b>"
     await wait_msg.edit(reply_text)
 
+# Send Torrent Links
 @Client.on_message(BypassFilter1 & filters.user(ADMINS))
 async def send_torrents(client, message):
     if (reply_to := message.reply_to_message) and (
@@ -86,7 +87,40 @@ async def send_torrents(client, message):
         await message.reply("<b>Torrent Links Sent Successfully!</b>")
     else:
         await message.reply("<b>No valid links found in the message!</b>")
-        
+
+# Send Magnet Links
+@Client.on_message(BypassFilter2 & filters.user(ADMINS))
+async def send_magnets(client, message):
+    if (reply_to := message.reply_to_message) and (
+        reply_to.text or reply_to.caption
+    ):
+        txt = reply_to.text or reply_to.caption
+        entities = reply_to.entities or reply_to.caption_entities
+    elif AUTO_BYPASS or len(message.text.split()) > 1:
+        txt = message.text
+        entities = message.entities
+    else:
+        await message.reply("<b>No links provided!</b>")
+        return
+
+    links = []
+    tasks = []
+
+    for entity in entities:
+        if entity.type in (MessageEntityType.URL, MessageEntityType.TEXT_LINK):
+            link = txt[entity.offset:entity.offset + entity.length]
+            links.append(link)
+            tasks.append(create_task(process_link_and_send1(client, link)))
+
+    if tasks:
+        results = await gather(*tasks, return_exceptions=True)
+        for result in results:
+            if isinstance(result, Exception):
+                print(f"Error during processing: {result}")
+        await message.reply("<b>Torrent Links Sent Successfully!</b>")
+    else:
+        await message.reply("<b>No valid links found in the message!</b>")
+
 # Inline query for bypass
 @Client.on_inline_query()
 async def inline_query(client, query):
