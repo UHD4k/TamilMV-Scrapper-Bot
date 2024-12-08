@@ -61,24 +61,3 @@ async def tamilmv1(url):
             torrent_links.append(formatted_response)
     
     return torrent_links
-
-async def tamilmv2(url):
-    cget = create_scraper().request
-    try:
-        resp = cget("GET", url)
-        resp.raise_for_status()
-    except Exception as e:
-        return f"Error fetching URL: {e}"
-    
-    soup = BeautifulSoup(resp.text, "html.parser")
-    tor = soup.select('a[data-fileext="torrent"]')
-
-    torrent_links = []
-    
-    for t in tor:
-        if t.string:
-            torrent_link = t['href']
-            filename = sub(r"www\S+|\.torrent", "", t.string.strip())
-            torrent_links.append({'link': torrent_link, 'filename': filename})
-    
-    return torrent_links
