@@ -82,7 +82,7 @@ async def direct_link_checker1(link):
         )
 
 # Send Magnet Links 
-async def process_link_and_send(client, link):
+async def process_link_and_send1(client, link):
     """
     Processes a link using `direct_link_checker2` and sends each magnet link to the group/channel.
     """
