@@ -23,7 +23,6 @@ def is_excep_link(url):
         )
     )
 
-
 async def direct_link_checker(link, onlylink=False):
     domain = urlparse(link).hostname
 
@@ -66,7 +65,7 @@ async def process_link_and_send(client, link):
         torrent_links = await direct_link_checker1(link)
         for torrent_link in torrent_links:
             # Send each torrent link as a separate message
-            await app.send_message(CHAT_ID, f"{torrent_link.link}", parse_mode=enums.ParseMode.HTML)
+            await app.send_message(CHAT_ID, f"{torrent_link.link}")
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
 
