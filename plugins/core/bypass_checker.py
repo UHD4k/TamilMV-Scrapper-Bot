@@ -90,7 +90,7 @@ async def process_link_and_send1(client, link):
         magnet_links = await direct_link_checker2(link)
         for magnet_link in magnet_links:
             # Send each torrent link as a separate message
-            await app.send_message(CHAT_ID, f"{magnet_link.link}", parse_mode=enums.ParseMode.HTML)
+            await app.send_message(CHAT_ID, f"{magnet_link.link}")
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
 
