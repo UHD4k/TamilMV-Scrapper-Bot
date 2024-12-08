@@ -117,7 +117,7 @@ async def send_magnets(client, message):
         for result in results:
             if isinstance(result, Exception):
                 print(f"Error during processing: {result}")
-        await message.reply("<b>Torrent Links Sent Successfully!</b>")
+        await message.reply("<b>Magnet Links Sent Successfully!</b>")
     else:
         await message.reply("<b>No valid links found in the message!</b>")
 
@@ -133,14 +133,14 @@ async def inline_query(client, query):
         try:
             result = await direct_link_checker(link, True)
             elapsed = time() - start
-            response = f"┎ <b>Source Link:</b> {link}\n┖ <b>Bypass Link:</b> {result}\n\n<b>Time: {convert_time(elapsed)}</b>"
+            response = f"┎ <b>Source Link :-</b> {link}\n\n┖ <b>Bypass Link:</b> {result}\n\n<b>Time: {convert_time(elapsed)}</b>"
         except Exception as e:
             response = f"<b>Error:</b> {e}"
 
         answer = InlineQueryResultArticle(
             title="Bypass Result",
             input_message_content=InputTextMessageContent(response, disable_web_page_preview=True),
-            description=f"Bypass link: {link}",
+            description=f"Bypass link :- {link}",
         )
         await query.answer(results=[answer], cache_time=0)
     else:
