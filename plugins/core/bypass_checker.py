@@ -14,6 +14,7 @@ CHAT_ID = int(os.environ.get("CHAT_ID", -1001821439025))
 
 app = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH).start()
 
+# Main Bypass
 def is_excep_link(url):
     return bool(
         match(
@@ -56,20 +57,7 @@ async def direct_link_checker(link, onlylink=False):
             break
     return links
 
-async def process_link_and_send1(client, link):
-    """
-    Processes a link using `direct_link_checker1` and sends each torrent link and filename to the group/channel.
-    """
-    try:
-        torrent_links = await direct_link_checker1(link)
-        for torrent in torrent_links:
-            torrent_link = torrent['link']
-            filename = torrent['filename']
-            # Send each torrent link and filename as a separate message
-            await app.send_message(CHAT_ID, f"<b>/qbleech {torrent_link}\nFilename :-</b> <code>{filename}</code>", parse_mode=enums.ParseMode.HTML)
-    except Exception as e:
-        print(f"Error processing {link}: {e}")  # Log the error for debugging
-
+# Send Torrents Links
 async def process_link_and_send(client, link):
     """
     Processes a link using `direct_link_checker1` and sends each torrent link to the group/channel.
@@ -81,7 +69,6 @@ async def process_link_and_send(client, link):
             await app.send_message(CHAT_ID, f"{torrent_link.link}")
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
-
 
 async def direct_link_checker1(link):
     """
