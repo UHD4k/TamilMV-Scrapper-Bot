@@ -91,11 +91,11 @@ async def tamilmv2(url):
         resp.raise_for_status()
     except Exception as e:
         return f"Error fetching URL: {e}"
-
+    
     soup = BeautifulSoup(resp.text, "html.parser")
+    tor = soup.select('a[data-fileext="torrent"]')
     mag = soup.select('a[href^="magnet:?xt=urn:btih:"]')
     magnet_links = []
-
     def clean_filename(raw_filename):
         filename = sub(r"^(www\.\S+\s-\s)|\.torrent$", "", raw_filename.strip())
         replacements = [
@@ -116,12 +116,13 @@ async def tamilmv2(url):
         
         return filename
 
-    for idx, m in enumerate(mag, start=1):
-        raw_filename = m.get_text(strip=True) if m.get_text() else f"File {idx}"
-        filename = clean_filename(raw_filename)
-        magnet_link = m['href']
-        # Format the response as required
-        formatted_response = f"<b>{idx}. Magnet Link:</b> <code>{magnet_link}</code>\n<b>File Name:</b> <code>{filename}</code>"
-        magnet_links.append(formatted_response)
-
+    for m in mag:
+        if t.string:
+            magnet_link = m['href']
+            filename = clean_filename(t.string)
+            # Format the response as required
+            formatted_response = f"<b>/qbleech {magnet_link}\nFile Name :-</b> </code>{filename}</code>"
+            magnet_links.append(formatted_response)
+    
     return magnet_links
+    
