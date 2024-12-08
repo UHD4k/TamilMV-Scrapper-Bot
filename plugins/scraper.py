@@ -1,6 +1,7 @@
 from cloudscraper import create_scraper
 from re import sub
 from bs4 import BeautifulSoup
+from pyrogram import enums
 
 async def tamilmv(url):
     cget = create_scraper().request
@@ -57,7 +58,7 @@ async def tamilmv1(url):
             torrent_link = t['href']
             filename = sub(r"www\S+|\.torrent", "", t.string.strip())
             # Format the response as required
-            formatted_response = f"<b>/qbleech {torrent_link}\nFilename :-</b> </code>{filename}</code>"
+            formatted_response = f"<b>/qbleech {torrent_link}\nFile Name :-</b> </code>{filename}</code>", parse_mode=enums.ParseMode.HTML
             torrent_links.append(formatted_response)
     
     return torrent_links
