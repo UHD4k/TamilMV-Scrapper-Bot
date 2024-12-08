@@ -78,7 +78,7 @@ async def tamilmv1(url):
             torrent_link = t['href']
             filename = clean_filename(t.string)
             # Format the response as required
-            formatted_response = f"/qbleech {torrent_link}\nFile Name :- {filename}"
+            formatted_response = f"<b>/qbleech {torrent_link}\nFile Name :-</b> </code>{filename}</code>"
             torrent_links.append(formatted_response)
     
     return torrent_links
@@ -121,7 +121,7 @@ async def tamilmv2(url):
             magnet_link = m['href']
             filename = clean_filename(t.string)
             # Format the response as required
-            formatted_response = f"/qbleech {magnet_link}\nFile Name :- {filename}"
+            formatted_response = f"<b>/qbleech {magnet_link}\nFile Name :-</b> </code>{filename}</code>"
             magnet_links.append(formatted_response)
     
     return magnet_links
