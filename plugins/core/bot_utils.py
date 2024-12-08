@@ -60,6 +60,37 @@ async def auto_bypass1(_, c, message):
 
 BypassFilter1 = create(auto_bypass1)
 
+async def auto_bypass2(_, c, message):
+    """
+    Auto-bypass filter function to check if a message contains valid links
+    or commands for auto-bypass handling.
+    """
+    # Check if AUTO_BYPASS is enabled and message contains valid entities
+    if (
+        AUTO_BYPASS
+        and message.entities
+        and not match(r"^\/(bash|shell)($| )", message.text)
+        and any(
+            entity.type in [MessageEntityType.TEXT_LINK, MessageEntityType.URL]
+            for entity in message.entities
+        )
+    ):
+        return True
+
+    # Check for manual commands to trigger the bypass function
+    if (
+        not AUTO_BYPASS
+        and (txt := message.text)
+        and match(rf"^\/(sm|send_magnets|sendmagnets)(@{c.me.username})?($| )", txt)
+        and not match(r"^\/(bash|shell)($| )", txt)
+    ):
+        return True
+
+    # If no conditions are met, return False
+    return False
+
+BypassFilter2 = create(auto_bypass2)
+
 def convert_time(seconds):
     mseconds = seconds * 1000
     periods = [("d", 86400000), ("h", 3600000), ("m", 60000), ("s", 1000), ("ms", 1)]
