@@ -88,7 +88,7 @@ async def process_link_and_send1(client, link):
     Processes a link using `direct_link_checker2` and sends each torrent link to the group/channel.
     """
     try:
-        magnet_links = await direct_link_checker1(link)
+        magnet_links = await direct_link_checker2(link)
         for magnet_link in magnet_links:
             # Send each torrent link as a separate message
             await client.send_message(CHAT_ID_MAGNET, f"{magnet_link}")
