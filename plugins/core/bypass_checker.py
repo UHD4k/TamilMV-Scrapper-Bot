@@ -14,7 +14,6 @@ from bs4 import BeautifulSoup
 from plugins.Database.db import u_db
 from config import Config
 import feedparser
-#from bs4 import BeautifulSoup as bs
 
 API_ID = int(os.environ.get("API_ID",11973721))
 API_HASH = os.environ.get("API_HASH", "5264bf4663e9159565603522f58d3c18")
@@ -415,7 +414,7 @@ async def tamilmv_rss_feed(bot: Client):
     
     for url in data:
         html = requests.request("GET", url , headers=headers)
-        soup = bs(html.text, 'lxml')
+        soup = BeautifulSoup(html.text, 'lxml')
         pattern = re.compile(r"magnet:\?xt=urn:[a-z0-9]+:[a-zA-Z0-9]{40}")
         big_title = soup.find_all('a')
         all_titles = []
@@ -474,7 +473,7 @@ async def tamilblasters_rss_feed(bot: Client):
     }
     for url in data:
         html = requests.request("GET", url , headers=headers)
-        soup = bs(html.text, 'lxml')
+        soup = BeautifulSoup(html.text, 'lxml')
         pattern = re.compile(r"magnet:\?xt=urn:[a-z0-9]+:[a-zA-Z0-9]{40}")
         big_title = soup.find_all('a')
         all_titles = []
@@ -528,7 +527,7 @@ async def tamilrockers_rss_feed(bot: Client):
     }
     for url in data:
         html = requests.request("GET", url , headers=headers)
-        soup = bs(html.text, 'lxml')
+        soup = BeautifulSoup(html.text, 'lxml')
         pattern = re.compile(r"magnet:\?xt=urn:[a-z0-9]+:[a-zA-Z0-9]{40}")
         big_title = soup.find_all('a')
         all_titles = []
