@@ -12,7 +12,7 @@ class Database:
         self.tr = self.db.TamilRockers_List
         self.domains = self.db.Domains
 
-    def tamilmv(self, Name, link, url):
+    def tamilmv_rss(self, Name, link, url):
         return dict(
             FileName = Name,
             magnet_link = link,
