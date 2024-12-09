@@ -13,7 +13,7 @@ from time import time
 id_pattern = re.compile(r'^.\d+$') 
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMINS', '1391556668 1242556540').split()]
 AUTO_BYPASS = bool(os.getenv("AUTO_BYPASS", "False") == "True")
-CHAT_ID = int(os.environ.get("CHAT_ID", -1002105808268))
+CHAT_ID = int(os.environ.get("CHAT_ID", -1001821439025))
 
 # Main bypass handler function
 @Client.on_message(BypassFilter & (filters.user(ADMINS)))
