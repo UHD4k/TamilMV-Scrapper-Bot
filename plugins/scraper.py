@@ -115,7 +115,7 @@ async def tamilmv2(url):
         
         return filename
 
-    for m in mag:
+    for t, m in zip(tor, mag):
         if t.string:
             magnet_link = m['href']
             filename = clean_filename(t.string)
