@@ -33,9 +33,9 @@ async def start(self):
     await super().start()
     print("Bot Started!")
     # Notify in log channels
-    for chat in [LOG_CHANNEL]:
+    for chat in [LOG_CHANNEL], Config.TAMILMV_LOG, Config.TAMILBLAST_LOG, Config.GROUP_ID:
         await self.send_message(chat, "Bot Started!")
-
+        await Client2.send_message(chat, "Bot Started For Auto Leech")
     while running:
         try:
             print("TamilMV RSS Feed Running...")
@@ -47,9 +47,14 @@ async def start(self):
             time.sleep(150)
 
             # Send notification to GROUP_ID using the user account
-            print("Sending updates to group...")
-            await Client2.send_message(GROUP_ID, "Updates processed and sent.")
+            print("TamilMV RSS Feed Running for Group...")
+            await tamilmv_rss_feed_user(Client2)
+            time.sleep(150)
 
+            print("Tamilblasters RSS Feed Running for Group...")
+            await tamilblasters_rss_feed_user(Client2)
+            time.sleep(150)
+            
             print("Sleeping for 5 minutes...")
             time.sleep(300)
         except Exception as e:
