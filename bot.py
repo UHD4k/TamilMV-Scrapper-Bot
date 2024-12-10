@@ -30,6 +30,12 @@ running = True
 
 async def start(self):
     global running
+        apps = [Client2, self]
+        for app in apps:
+            app.start()
+        idle()
+        for app in apps:
+            app.stop()
     await super().start()
     print("Bot Started!")
 
@@ -63,14 +69,4 @@ async def start(self):
     print("Bot Stopped!")
     for chat in [LOG_CHANNEL]:
         await self.send_message(chat, "Bot Stopped!")
-
-    # Start and stop additional apps
-    #if STRING_SESSION:
-        #apps = [Client2, self]
-      #  for app in apps:
-          #  app.start()
-    #    idle()
-       # for app in apps:
-           # app.stop()
-    #else:
-      #  self.run()
+        
