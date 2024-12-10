@@ -40,20 +40,16 @@ async def start(self):
         try:
             print("TamilMV RSS Feed Running...")
             await tamilmv_rss_feed(self)
-            time.sleep(150)
 
             print("TamilBlasters RSS Feed Running...")
             await tamilblasters_rss_feed(self)
-            time.sleep(150)
 
             # Send notification to GROUP_ID using the user account
             print("TamilMV RSS Feed Running for Group...")
             await tamilmv_rss_feed_user(Client2)
-            time.sleep(150)
 
             print("Tamilblasters RSS Feed Running for Group...")
             await tamilblasters_rss_feed_user(Client2)
-            time.sleep(150)
             
             print("Sleeping for 5 minutes...")
             time.sleep(300)
