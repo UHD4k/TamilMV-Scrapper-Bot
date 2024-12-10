@@ -658,7 +658,7 @@ async def tamilmv_rss_user(bot: Client):
     
 # tamilblasters rss feed function
 
-async def tamilblasters(bot: Client):
+async def tamilblasters_user(bot: Client):
     tamilblasters_url = await u_db.get_domain("1TamilBlasters")
     if not tamilblasters_url:
         print("Error: TamilBlasters domain not found in the database.")
@@ -739,3 +739,9 @@ async def tamilblasters(bot: Client):
 
         num = num + 1
     return real_dict
+
+
+
+
+# send message with user 
+
