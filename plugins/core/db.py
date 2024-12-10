@@ -1,6 +1,5 @@
 import datetime, os
 import motor.motor_asyncio
-from config import Config
 
 DB_URL = os.environ.get("DB_URL", "mongodb+srv://KarthikMovies:KarthikUK007@cluster0.4l5byki.mongodb.net/?retryWrites=true&w=majority")
 DB_NAME = os.environ.get("DB_NAME", "Cluster0")
