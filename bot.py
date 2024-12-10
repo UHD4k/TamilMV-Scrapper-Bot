@@ -65,12 +65,12 @@ async def start(self):
         await self.send_message(chat, "Bot Stopped!")
 
     # Start and stop additional apps
-    if STRING_SESSION:
-        apps = [Client2, self]
-        for app in apps:
-            app.start()
-        idle()
-        for app in apps:
-            app.stop()
-    else:
-        self.run()
+    #if STRING_SESSION:
+        #apps = [Client2, self]
+      #  for app in apps:
+          #  app.start()
+    #    idle()
+       # for app in apps:
+           # app.stop()
+    #else:
+      #  self.run()
