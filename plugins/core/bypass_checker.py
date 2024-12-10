@@ -636,7 +636,7 @@ async def tamilmv_rss_user(bot: Client):
             try:
                 real_dict.setdefault(movie_list[num], [])
                 real_dict[movie_list[num]].append((f"/ql {file_link[p]} \n\n **{all_titles[p]}**"))
-                if not await u_db.is_tamilmv_exist(all_titles[p], file_link[p], mag[p])
+                if not await u_db.is_tamilmv_exist(all_titles[p], file_link[p], mag[p]):
 
                     # Send message using Telethon's `app` client
                     await app.send_message(
