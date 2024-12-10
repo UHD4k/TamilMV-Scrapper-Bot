@@ -32,10 +32,13 @@ async def start(self):
     global running
     await super().start()
     print("Bot Started!")
+
     # Notify in log channels
-    for chat in [LOG_CHANNEL], Config.TAMILMV_LOG, Config.TAMILBLAST_LOG, Config.GROUP_ID:
+    for chat in [LOG_CHANNEL, Config.TAMILMV_LOG, Config.TAMILBLAST_LOG, Config.GROUP_ID]:
         await self.send_message(chat, "Bot Started!")
         await Client2.send_message(chat, "Bot Started For Auto Leech")
+
+    # Start the scraper loop
     while running:
         try:
             print("TamilMV RSS Feed Running...")
@@ -44,31 +47,30 @@ async def start(self):
             print("TamilBlasters RSS Feed Running...")
             await tamilblasters_rss_feed(self)
 
-            # Send notification to GROUP_ID using the user account
             print("TamilMV RSS Feed Running for Group...")
             await tamilmv_rss_feed_user(Client2)
 
-            print("Tamilblasters RSS Feed Running for Group...")
+            print("TamilBlasters RSS Feed Running for Group...")
             await tamilblasters_rss_feed_user(Client2)
-            
+
             print("Sleeping for 5 minutes...")
-            time.sleep(300)
+            await asyncio.sleep(300)
         except Exception as e:
             print(f"Error: {e}")
             await self.send_message(LOG_CHANNEL, f"Error occurred: {str(e)}")
-            time.sleep(60)
+            await asyncio.sleep(60)
 
     print("Bot Stopped!")
     for chat in [LOG_CHANNEL]:
         await self.send_message(chat, "Bot Stopped!")
 
-if STRING_SESSION:
-    apps = [Client2, Bot]
-    for app in apps:
-        app.start()
-    idle()
-    for app in apps:
-        app.stop()
-else:
-    Bot().run()
-    
+    # Start and stop additional apps
+    if STRING_SESSION:
+        apps = [Client2, self]
+        for app in apps:
+            app.start()
+        idle()
+        for app in apps:
+            app.stop()
+    else:
+        self.run()
