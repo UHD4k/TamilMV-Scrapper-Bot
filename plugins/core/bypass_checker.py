@@ -3,7 +3,7 @@ from re import match
 from urllib.parse import urlparse
 from plugins.core.exceptions import DDLException
 from plugins.scraper import *
-import os
+import os, asyncio
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 
@@ -128,6 +128,7 @@ async def process_link_and_sendg(client, link):
 @app.on(events.NewMessage(chats=SOURCE_CHANNELS))  # Listen to multiple source channels
 async def forward_message(event):
     try:
+        await asyncio.sleep(5)
         if event.message.media:  # If the message has media
             await event.client.send_message(DESTINATION_CHANNEL, event.message)
         else:  # If the message is text-only
