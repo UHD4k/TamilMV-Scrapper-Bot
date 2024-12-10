@@ -1,4 +1,9 @@
 import os
+import logging
+
+# Logging >>>
+logging.getLogger("pyrogram").setLevel(logging.ERROR)
+LOGGER = logging.getLogger(__name__)
 
 class Config:
     OWNER_ID = int(os.environ.get("OWNER_ID", 1391556668))
