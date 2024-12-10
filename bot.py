@@ -15,11 +15,8 @@ STRING_SESSION = os.environ.get("STRING_SESSION", "1BVtsOKEBu5Pf_Oesjuxt4TIzNijt
 
 Bot = Client("1TamilMVScrapper", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root='plugins'))
 
-# Flag to control running status
-running = True
-
 async def start(self):
-    global running
+    global True
     await super().start()
     print("Bot Started!")
 
@@ -44,7 +41,7 @@ async def start(self):
         self.run()
 
     # Start the scraper loop
-    while running:
+    while True:
         try:
             print("TamilMV RSS Feed Running...")
             await tamilmv_rss_feed(self)
