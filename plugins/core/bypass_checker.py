@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 from plugins.core.exceptions import DDLException
 from plugins.scraper import *
 import os
-from telethon import TelegramClient
+from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 
 API_ID = int(os.environ.get("API_ID",11973721))
@@ -120,3 +120,18 @@ async def process_link_and_sendg(client, link):
             await app.send_message(GROUP_ID, f"{torrent_link}")
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
+
+@app.on(events.NewMessage(chats=source_channel))
+async def forward_message(event):
+    user_id = event.sender_id
+    if not event.is_private:
+        try:
+            if event.message.media:
+                for destination_channel_id in destination_channels:
+                    await event.client.send_message(destination_channel_id, event.message)
+            else:
+                for destination_channel_id in destination_channels:
+                    await event.client.send_message(destination_channel_id, event.message.text)
+        except Exception as e:
+            print(f"Failed to forward the message: {str(e)}")
+            
