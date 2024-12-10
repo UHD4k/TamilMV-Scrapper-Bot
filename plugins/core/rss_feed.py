@@ -5,7 +5,7 @@ import requests
 import feedparser
 from bs4 import BeautifulSoup as bs
 from pyrogram import Client
-from MrTamilKiD.tools.db import u_db
+from plugins.core.db import u_db
 
 TAMILMV_LOG = int(os.environ.get("TMV_LOG", -1001864825324))
 TAMILBLAST_LOG = int(os.environ.get("TB_LOG", -1001822541447))
