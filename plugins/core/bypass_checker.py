@@ -204,8 +204,8 @@ async def tamilmv_rss(bot: Client):
                 if not await u_db.is_tamilmv_exist(all_titles[p], file_link[p], mag[p]):
                     await bot.send_message(chat_id=Config.TAMILMV_LOG,
                         text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>1TamilMV</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
+                    #await app.send_message(chat_id=Config.GROUP_ID,
+                        #text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
                     print(f"added working...")
                     await u_db.add_tamilmv(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
@@ -285,8 +285,8 @@ async def tamilblasters(bot: Client):
                 if not await u_db.is_tb_exist(all_titles[p], file_link[p], mag[p]):
                     await bot.send_message(chat_id=Config.TAMILBLAST_LOG,
                         text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>1TamilBlasters</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
+                    #await app.send_message(chat_id=Config.GROUP_ID,
+                        #text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
                     print(f"added working...")
                     await u_db.add_tb(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
@@ -367,8 +367,8 @@ async def tamilrockers(bot: Client):
                 if not await u_db.is_tr_exist(all_titles[p], file_link[p], mag[p]):
                     await bot.send_message(chat_id=Config.TAMILROCKERS_LOG,
                         text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>2TamilRockers</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
+                    #await app.send_message(chat_id=Config.GROUP_ID,
+                        #text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
                     print(f"added working...")
                     await u_db.add_tr(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
@@ -440,8 +440,8 @@ async def tamilmv_rss_feed(bot: Client):
                 if not await u_db.is_tamilmv_exist(all_titles[p], file_link[p], mag[p]):
                     await bot.send_message(chat_id=Config.TAMILMV_LOG,
                         text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>1TamilMV</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
+                    #await app.send_message(chat_id=Config.GROUP_ID,
+                        #text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
                     print(f"added working...")
                     await u_db.add_tamilmv(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
@@ -492,8 +492,8 @@ async def tamilblasters_rss_feed(bot: Client):
                 if not await u_db.is_tb_exist(all_titles[p], file_link[p], mag[p]):
                     await bot.send_message(chat_id=Config.TAMILBLAST_LOG,
                          text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>1TamilBlasters</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
+                    #await app.send_message(chat_id=Config.GROUP_ID,
+                        #text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
                     print(f"added working...")
                     await u_db.add_tb(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
@@ -546,8 +546,8 @@ async def tamilrockers_rss_feed(bot: Client):
                 if not await u_db.is_tr_exist(all_titles[p], file_link[p], mag[p]):
                     await bot.send_message(chat_id=Config.TAMILROCKERS_LOG,
                          text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>2TamilRockers</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
+                    #await app.send_message(chat_id=Config.GROUP_ID,
+                        #text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
                     print(f"added working...")
                     await u_db.add_tr(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
@@ -563,10 +563,10 @@ async def tamilrockers_rss_feed(bot: Client):
 
 
 
-# send message to user
+# send message with user
 
 # TamilMV RSS Feed Scraper Function
-async def tamilmv_rss(bot: Client):
+async def tamilmv_rss_user(bot: Client):
     tamilmv_url = await u_db.get_domain("1TamilMV")
     if not tamilmv_url:
         print("Error: TamilMV domain not found in the database.")
@@ -636,21 +636,26 @@ async def tamilmv_rss(bot: Client):
             try:
                 real_dict.setdefault(movie_list[num], [])
                 real_dict[movie_list[num]].append((f"/ql {file_link[p]} \n\n **{all_titles[p]}**"))
-                if not await u_db.is_tamilmv_exist(all_titles[p], file_link[p], mag[p]):
-                    await bot.send_message(chat_id=Config.TAMILMV_LOG,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>1TamilMV</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
-                    print(f"added working...")
+                if not await u_db.is_tamilmv_exist(all_titles[p], file_link[p], mag[p])
+
+                    # Send message using Telethon's `app` client
+                    await app.send_message(
+                        Config.GROUP_ID,  # Replace with the group/channel ID
+                        f"**/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}**",
+                        #parse_mode="html",
+                        disable_web_page_preview=True
+                    )
+
+                    print("Message sent successfully.")
                     await u_db.add_tamilmv(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
             except Exception as e:
-                print(e)
+                print(f"Error: {e}")
                 pass
 
         num = num + 1
     return real_dict
-
+    
 # tamilblasters rss feed function
 
 async def tamilblasters(bot: Client):
@@ -718,11 +723,14 @@ async def tamilblasters(bot: Client):
                 real_dict.setdefault(movie_list[num], [])
                 real_dict[movie_list[num]].append((f"/ql {file_link[p]} \n\n **{all_titles[p]}**"))
                 if not await u_db.is_tb_exist(all_titles[p], file_link[p], mag[p]):
-                    await bot.send_message(chat_id=Config.TAMILBLAST_LOG,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>\n\n<b>📥 Updated By <a href='https://t.me/DP_BOTZ'>1TamilBlasters</a></b>", disable_web_page_preview=True)
-                    await app.send_message(chat_id=Config.GROUP_ID,
-                        text=f"<b>/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}</b>", disable_web_page_preview=True)
-                    print(f"added working...")
+                    # Send message using Telethon's `app` client
+                    await app.send_message(
+                        Config.GROUP_ID,  # Replace with the group/channel ID
+                        f"**/qbleech {file_link[p]}\n\nFile Name :- {all_titles[p]}**",
+                        #parse_mode="html",
+                        disable_web_page_preview=True
+                    )
+                    print(f"Message sent successfully.")
                     await u_db.add_tb(all_titles[p], file_link[p], mag[p])
                     await asyncio.sleep(3)
             except Exception as e:
