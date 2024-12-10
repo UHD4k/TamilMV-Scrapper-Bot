@@ -25,13 +25,49 @@ STRING_SESSION = os.environ.get("STRING_SESSION", "1BVtsOKEBu5Pf_Oesjuxt4TIzNijt
 
 Bot = Client("1TamilMVScrapper", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root='plugins'))
 
+# Flag to control running status
+running = True
+
+async def start(self):
+    global running
+    await super().start()
+    print("Bot Started!")
+    # Notify in log channels
+    for chat in [LOG_CHANNEL]:
+        await self.send_message(chat, "Bot Started!")
+
+    while running:
+        try:
+            print("TamilMV RSS Feed Running...")
+            await tamilmv_rss_feed(self)
+            time.sleep(150)
+
+            print("TamilBlasters RSS Feed Running...")
+            await tamilblasters_rss_feed(self)
+            time.sleep(150)
+
+            # Send notification to GROUP_ID using the user account
+            print("Sending updates to group...")
+            await Client2.send_message(GROUP_ID, "Updates processed and sent.")
+
+            print("Sleeping for 5 minutes...")
+            time.sleep(300)
+        except Exception as e:
+            print(f"Error: {e}")
+            await self.send_message(LOG_CHANNEL, f"Error occurred: {str(e)}")
+            time.sleep(60)
+
+    print("Bot Stopped!")
+    for chat in [LOG_CHANNEL]:
+        await self.send_message(chat, "Bot Stopped!")
+
 if STRING_SESSION:
-    apps = [Client2,Bot]
+    apps = [Client2, Bot]
     for app in apps:
         app.start()
     idle()
     for app in apps:
         app.stop()
-    
 else:
     Bot().run()
+    
