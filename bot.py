@@ -1,5 +1,5 @@
-from pyrogram import Client, __version__, idle
-import re, os, time
+from pyrogram import Client, idle
+import re, os, time, asyncio
 from datetime import datetime
 from pytz import timezone
 from pyrogram.raw.all import layer
@@ -30,19 +30,28 @@ running = True
 
 async def start(self):
     global running
-        apps = [Client2, self]
-        for app in apps:
-            app.start()
-        idle()
-        for app in apps:
-            app.stop()
     await super().start()
     print("Bot Started!")
 
     # Notify in log channels
     for chat in [LOG_CHANNEL, Config.TAMILMV_LOG, Config.TAMILBLAST_LOG, Config.GROUP_ID]:
-        await self.send_message(chat, "Bot Started!")
-        await Client2.send_message(chat, "Bot Started For Auto Leech")
+        try:
+            await self.send_message(chat, "Bot Started!")
+            await Client2.send_message(chat, "Bot Started For Auto Leech")
+        except Exception as e:
+            print(f"Error sending start message to chat {chat}: {e}")
+
+    # Start and manage Client2 and Bot concurrently using asyncio
+    if STRING_SESSION:
+        # Run Client2 and Bot in parallel
+        tasks = [
+            asyncio.create_task(Client2.start()), 
+            asyncio.create_task(self.start())
+        ]
+        await asyncio.gather(*tasks)
+
+    else:
+        self.run()
 
     # Start the scraper loop
     while running:
@@ -62,11 +71,14 @@ async def start(self):
             print("Sleeping for 5 minutes...")
             await asyncio.sleep(300)
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Error in scraper loop: {e}")
             await self.send_message(LOG_CHANNEL, f"Error occurred: {str(e)}")
             await asyncio.sleep(60)
 
     print("Bot Stopped!")
     for chat in [LOG_CHANNEL]:
-        await self.send_message(chat, "Bot Stopped!")
-        
+        try:
+            await self.send_message(chat, "Bot Stopped!")
+        except Exception as e:
+            print(f"Error sending stop message to chat {chat}: {e}")
+            
