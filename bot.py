@@ -42,11 +42,11 @@ async def start_bot(clients):
     while True:
         print("TamilMV RSS Feed Running...")
         await tamilmv_rss_feed(Bot)
-        time.sleep(150)
+        time.sleep(60)
 
         print("TamilBlasters RSS Feed Running...")
         await tamilblasters_rss_feed(Bot)
-        time.sleep(300)
+        time.sleep(60)
 
 async def stop_bot(clients):
     """Stop the bots."""
