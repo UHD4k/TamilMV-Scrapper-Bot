@@ -13,10 +13,13 @@ STRING_SESSION = os.environ.get("STRING_SESSION", "1BVtsOKEBu5Pf_Oesjuxt4TIzNijt
 CHAT_ID_TORRENT = int(os.environ.get("CHAT_ID_TORRENT", -1002102777380))
 CHAT_ID_MAGNET = int(os.environ.get("CHAT_ID_MAGNET", -1001937895669))
 GROUP_ID = int(os.environ.get("GROUP_ID", -1001542301808))
-SOURCE_CHANNELS = list(
-    map(int, os.environ.get("SOURCE_CHANNELS", "-1001822541447 -1002056074553 -1001864825324").split(" "))
-)
+#SOURCE_CHANNELS = list(
+#    map(int, os.environ.get("SOURCE_CHANNELS", "-1001822541447 -1002056074553 -1001864825324").split(" "))
+#)
+SOURCE_CHANNEL = int(os.environ.get("SOURCE_CHANNEL", -1001864825324))
+SOURCE_CHANNEL1 = int(os.environ.get("SOURCE_CHANNEL1", -1001822541447))
 DESTINATION_CHANNEL = int(os.environ.get("DESTINATION_CHANNEL", -1001542301808))
+DESTINATION_CHANNEL1 = int(os.environ.get("DESTINATION_CHANNEL", -1001542301808))
 
 app = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH).start()
 
@@ -125,7 +128,7 @@ async def process_link_and_sendg(client, link):
     except Exception as e:
         print(f"Error processing {link}: {e}")  # Log the error for debugging
 
-@app.on(events.NewMessage(chats=SOURCE_CHANNELS))  # Listen to multiple source channels
+@app.on(events.NewMessage(chats=SOURCE_CHANNEL))  # Listen to multiple source channels
 async def forward_message(event):
     try:
         await asyncio.sleep(5)
@@ -133,6 +136,21 @@ async def forward_message(event):
             await event.client.send_message(DESTINATION_CHANNEL, event.message)
         else:  # If the message is text-only
             await event.client.send_message(DESTINATION_CHANNEL, event.message.text)
+    except Exception as e:
+        print(f"Failed to forward the message: {str(e)}")
+        
+@app.on(events.NewMessage(chats=SOURCE_CHANNEL1))  # Listen to multiple source channels
+async def forward_message(event):
+    try:
+        await asyncio.sleep(5)
+        
+        # Check if the message has media
+        if event.message.media:
+            await event.client.send_message(DESTINATION_CHANNEL1, event.message)
+        else:  # If the message is text-only
+            # Replace "/qbleech" with "/qbleech1"
+            modified_text = event.message.text.replace("/qbleech", "/qbleech1")
+            await event.client.send_message(DESTINATION_CHANNEL1, modified_text)
     except Exception as e:
         print(f"Failed to forward the message: {str(e)}")
         
