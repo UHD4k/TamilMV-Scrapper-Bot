@@ -17,9 +17,9 @@ GROUP_ID = int(os.environ.get("GROUP_ID", -1001542301808))
 #    map(int, os.environ.get("SOURCE_CHANNELS", "-1001822541447 -1002056074553 -1001864825324").split(" "))
 #)
 SOURCE_CHANNEL = int(os.environ.get("SOURCE_CHANNEL", -1001864825324))
-SOURCE_CHANNEL1 = int(os.environ.get("SOURCE_CHANNEL1", -1001822541447))
+SOURCE_CHANNEL_1 = int(os.environ.get("SOURCE_CHANNEL_1", -1001822541447))
 DESTINATION_CHANNEL = int(os.environ.get("DESTINATION_CHANNEL", -1001542301808))
-DESTINATION_CHANNEL1 = int(os.environ.get("DESTINATION_CHANNEL1", -1001542301808))
+DESTINATION_CHANNEL_1 = int(os.environ.get("DESTINATION_CHANNEL_1", -1001542301808))
 
 app = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH).start()
 
@@ -139,15 +139,15 @@ async def forward_message(event):
     except Exception as e:
         print(f"Failed to forward the message: {str(e)}")
         
-@app.on(events.NewMessage(chats=SOURCE_CHANNEL1))  # Listen to multiple source channels
+@app.on(events.NewMessage(chats=SOURCE_CHANNEL_1))  # Listen to multiple source channels
 async def forward_message(event):
     try:
         await asyncio.sleep(300)
         if event.message.media:
-            await event.client.send_message(DESTINATION_CHANNEL1, event.message)
+            await event.client.send_message(DESTINATION_CHANNEL_1, event.message)
         else:  # If the message is text-only
             modified_text = event.message.text.replace("/qbleech", "/qbleech1")
-            await event.client.send_message(DESTINATION_CHANNEL1, modified_text)
+            await event.client.send_message(DESTINATION_CHANNEL_1, modified_text)
     except Exception as e:
         print(f"Failed to forward the message: {str(e)}")
         
