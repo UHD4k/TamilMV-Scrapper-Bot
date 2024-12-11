@@ -14,5 +14,4 @@ lxml
 motor
 psutil
 pyrofork
-python-dotenv
 requests
